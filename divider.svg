@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 24" width="100%">
 <defs><filter id="g" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-<linearGradient id="c" x1="0" x2="1"><stop offset="0" stop-color="#7F5AF0"/><stop offset="1" stop-color="#2CB67D"/></linearGradient></defs>
-<style>.b{fill:none;stroke:#262b4f;stroke-width:2}.l{fill:none;stroke:url(#c);stroke-width:3;stroke-linecap:round;stroke-dasharray:90 1100;animation:r 3.5s linear infinite;filter:url(#g)}@keyframes r{from{stroke-dashoffset:1100}to{stroke-dashoffset:-90}}.d{fill:#7F5AF0;animation:p 1.75s ease-in-out infinite alternate;filter:url(#g)}@keyframes p{from{opacity:.3}to{opacity:1}}</style>
+<linearGradient id="c" x1="0" x2="1"><stop offset="0" stop-color="#FF7A1A"/><stop offset="1" stop-color="#FFC531"/></linearGradient></defs>
+<style>.b{fill:none;stroke:#3D2A14;stroke-width:2}.l{fill:none;stroke:url(#c);stroke-width:3;stroke-linecap:round;stroke-dasharray:90 1100;animation:r 3.5s linear infinite;filter:url(#g)}@keyframes r{from{stroke-dashoffset:1100}to{stroke-dashoffset:-90}}.d{fill:#FF7A1A;animation:p 1.75s ease-in-out infinite alternate;filter:url(#g)}@keyframes p{from{opacity:.3}to{opacity:1}}</style>
 <path class="b" d="M0,12 H380 L392,4 H608 L620,12 H1000"/>
 <path class="l" d="M0,12 H380 L392,4 H608 L620,12 H1000"/>
 <circle class="d" cx="392" cy="4" r="3"/><circle class="d" cx="608" cy="4" r="3" style="animation-delay:.8s"/>

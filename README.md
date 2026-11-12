@@ -2,16 +2,23 @@
 
 <img src="./header.svg" width="100%" alt="Nicoly Canteiro" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=2600&pause=800&color=2CB67D&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=2600&pause=800&color=FFC531&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
 
 <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,latex,arduino,git,github,vscode,linux&theme=dark" /></a>
 
-<img src="https://komarev.com/ghpvc/?username=niinacanteiro&label=visitantes&color=7F5AF0&style=for-the-badge" />
+<img src="https://komarev.com/ghpvc/?username=niinacanteiro&label=visitantes&color=FF7A1A&style=for-the-badge" />
 
 </div>
 
-> [!TIP]
-> Este perfil é interativo: dá para **girar o raio 3D**, ver **as estrelas piscando** e **a luz correndo pelo circuito**, **dar zoom no mapa** e **abrir as seções** escondidas. Tudo renderizado pelo próprio GitHub, sem site externo.
+<div align="center">
+
+### 🪐 [Entrar no meu universo interativo →](https://niinacanteiro.github.io/niinacanteiro/)
+
+Universo 3D, circuito vivo, laboratório de experimentos e mapa de constelações.
+
+<a href="https://niinacanteiro.github.io/niinacanteiro/"><img src="https://img.shields.io/badge/ABRIR_PORTF%C3%93LIO-FF7A1A?style=for-the-badge&logo=githubpages&logoColor=0A0806" alt="Abrir portfólio" /></a>
+
+</div>
 
 <img src="./divider.svg" width="100%" />
 
@@ -248,7 +255,7 @@ endsolid raio
   "features": [
     {
       "type": "Feature",
-      "properties": { "name": "Pontes e Lacerda - MT", "marker-color": "#7F5AF0", "marker-symbol": "star" },
+      "properties": { "name": "Pontes e Lacerda - MT", "marker-color": "#FF7A1A", "marker-symbol": "star" },
       "geometry": { "type": "Point", "coordinates": [-59.335, -15.226] }
     }
   ]
@@ -295,7 +302,7 @@ endsolid raio
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=niinacanteiro&theme=tokyonight&hide_border=true&background=0D1117&ring=7F5AF0&fire=2CB67D&currStreakLabel=2CB67D" />
+<img src="https://streak-stats.demolab.com?user=niinacanteiro&theme=tokyonight&hide_border=true&background=0D1117&ring=FF7A1A&fire=FFC531&currStreakLabel=FFC531" />
 
 </div>
 
