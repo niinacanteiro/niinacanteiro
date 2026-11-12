@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicoly Canteiro · Engenharia Elétrica, programação e robótica</title>
+<meta name="description" content="Portfólio interativo de Nicoly Canteiro, estudante de Engenharia Elétrica no IFMT Pontes e Lacerda: experimentos em Python, LaTeX, circuitos e Arduino.">
+<meta name="theme-color" content="#0A0806">
+<meta property="og:title" content="Nicoly Canteiro · Universo tecnológico">
+<meta property="og:description" content="Engenharia Elétrica · Programação · Robótica · Tecnologia">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0806'/%3E%3Cpath d='M18 3 7 18h7l-2 11 11-15h-7z' fill='%23FFC531'/%3E%3C/svg%3E">
+<link rel="preload" href="SpaceGrotesk-latin-ecea81.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "./three.module.min.js",
+  "three/addons/controls/OrbitControls.js": "./OrbitControls.js"
+} }
+</script>
+</head>
+<body>
+<a class="skip" href="#sobre">Pular para o conteúdo</a>
+
+<!-- Barramento lateral: o "circuito" que conecta as seções -->
+<nav class="rail" aria-label="Barramento de seções">
+  <svg class="rail-svg" aria-hidden="true"><line x1="50%" y1="0" x2="50%" y2="100%"/></svg>
+  <span class="rail-pulse" aria-hidden="true"></span>
+  <ol>
+    <li><a href="#inicio" data-node="inicio"><span class="sr">Início</span></a></li>
+    <li><a href="#universo" data-node="universo"><span class="sr">Universo 3D</span></a></li>
+    <li><a href="#sobre" data-node="sobre"><span class="sr">Sobre mim</span></a></li>
+    <li><a href="#laboratorio" data-node="laboratorio"><span class="sr">Laboratório</span></a></li>
+    <li><a href="#conhecimentos" data-node="conhecimentos"><span class="sr">Conhecimentos</span></a></li>
+    <li><a href="#constelacoes" data-node="constelacoes"><span class="sr">Constelações</span></a></li>
+    <li><a href="#contato" data-node="contato"><span class="sr">Contato</span></a></li>
+  </ol>
+</nav>
+
+<header class="topbar">
+  <a class="brand" href="#inicio" aria-label="Início">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M18 4 8 18h7l-2 10 11-15h-7z" fill="currentColor"/></svg>
+    <span>Nina<b>.</b>dev</span>
+  </a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span></button>
+  <nav id="menu" class="menu" aria-label="Principal">
+    <a href="#universo">Universo</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#laboratorio">Laboratório</a>
+    <a href="#conhecimentos">Conhecimentos</a>
+    <a href="#constelacoes">Constelações</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <div class="social">
+    <a href="https://github.com/niinacanteiro" target="_blank" rel="noopener" aria-label="GitHub de Nicoly"><svg><use href="icons.svg#i-github"/></svg></a>
+    <a href="https://www.linkedin.com/in/nicoly-canteiro" target="_blank" rel="noopener" aria-label="LinkedIn de Nicoly"><svg><use href="icons.svg#i-linkedin"/></svg></a>
+  </div>
+</header>
+
+<main>
+<!-- 1. IDENTIDADE -->
+<section id="inicio" class="hero" aria-labelledby="hero-title">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <svg class="horizon" viewBox="0 0 800 420" aria-hidden="true">
+    <defs>
+      <radialGradient id="hg" cx="50%" cy="40%" r="50%"><stop offset="0" stop-color="#FFC531" stop-opacity=".55"/><stop offset=".45" stop-color="#FF7A1A" stop-opacity=".28"/><stop offset="1" stop-color="#FF7A1A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="ring" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7A1A" stop-opacity="0"/><stop offset=".55" stop-color="#FF9A3A"/><stop offset="1" stop-color="#FFF6EA"/></linearGradient>
+      <linearGradient id="band" x1="0" x2="1"><stop offset="0" stop-color="#FF7A1A" stop-opacity="0"/><stop offset=".5" stop-color="#FFE08A"/><stop offset="1" stop-color="#FF7A1A" stop-opacity="0"/></linearGradient>
+      <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+      <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <ellipse cx="400" cy="120" rx="390" ry="260" fill="url(#hg)"/>
+    <ellipse class="h-band" cx="400" cy="60" rx="380" ry="7" fill="url(#band)" filter="url(#blur3)"/>
+    <ellipse cx="400" cy="70" rx="165" ry="150" fill="none" stroke="url(#ring)" stroke-width="26" filter="url(#blur8)"/>
+    <ellipse cx="400" cy="70" rx="160" ry="145" fill="none" stroke="url(#ring)" stroke-width="5"/>
+    <ellipse cx="400" cy="62" rx="146" ry="128" fill="#0A0806"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="chip"><span class="dot"></span> Portfólio de engenharia · IFMT Pontes e Lacerda</p>
+      <h1 id="hero-title" class="name">NICOLY<br><span>CANTEIRO</span></h1>
+      <p class="signature">ENGENHARIA ELÉTRICA <i>·</i> PROGRAMAÇÃO <i>·</i> ROBÓTICA <i>·</i> TECNOLOGIA</p>
+      <p class="lede">Estudante de Engenharia Elétrica explorando o caminho entre a equação, o código e o circuito montado na bancada. Aqui ficam meus experimentos — com dados reais, direto dos meus repositórios.</p>
+      <div class="cta">
+        <a class="btn primary" href="#universo">Explorar o universo</a>
+        <a class="btn ghost" href="#laboratorio">Ver experimentos</a>
+      </div>
+    </div>
+    <div class="orbit-wrap" aria-hidden="true">
+      <div class="orbit-grid"></div>
+      <div class="orbit">
+        <span class="tile" style="--a:0deg" title="Python"><svg><use href="icons.svg#i-python"/></svg></span>
+        <span class="tile" style="--a:45deg" title="Jupyter"><svg><use href="icons.svg#i-jupyter"/></svg></span>
+        <span class="tile" style="--a:90deg" title="LaTeX"><svg><use href="icons.svg#i-latex"/></svg></span>
+        <span class="tile" style="--a:135deg" title="Overleaf"><svg><use href="icons.svg#i-overleaf"/></svg></span>
+        <span class="tile" style="--a:180deg" title="Arduino"><svg><use href="icons.svg#i-arduino"/></svg></span>
+        <span class="tile" style="--a:225deg" title="Tinkercad"><svg><use href="icons.svg#i-tinkercad"/></svg></span>
+        <span class="tile" style="--a:270deg" title="Git"><svg><use href="icons.svg#i-git"/></svg></span>
+        <span class="tile" style="--a:315deg" title="GitHub"><svg><use href="icons.svg#i-github"/></svg></span>
+      </div>
+      <div class="core"><svg viewBox="0 0 32 32"><path d="M18 3 7 18h7l-2 11 11-15h-7z" fill="currentColor"/></svg></div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#universo">role para explorar <span aria-hidden="true">↓</span></a>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><path class="signal" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><circle cx="450" cy="10" r="4"/><circle cx="750" cy="10" r="4"/></svg></div>
+
+<!-- 2. UNIVERSO 3D -->
+<section id="universo" class="section" aria-labelledby="uni-title">
+  <header class="sec-head">
+    <p class="kicker">01 · Observatório</p>
+    <h2 id="uni-title">Universo 3D</h2>
+    <p class="sec-sub">Cada planeta é uma área que eu estudo, girando em torno do mesmo núcleo: curiosidade. Arraste para girar, role ou faça pinça para aproximar, toque num planeta para saber mais.</p>
+  </header>
+  <div class="universe glass">
+    <div id="uni-stage" class="uni-stage" role="img" aria-label="Cena 3D com um núcleo luminoso e planetas em órbita representando áreas de estudo"></div>
+    <div id="uni-fallback" class="uni-fallback" hidden>
+      <div class="fb-system" aria-hidden="true">
+        <div class="fb-sun"></div>
+        <div class="fb-orbit o1"><span></span></div>
+        <div class="fb-orbit o2"><span></span></div>
+        <div class="fb-orbit o3"><span></span></div>
+        <div class="fb-orbit o4"><span></span></div>
+      </div>
+      <p class="fb-note">Seu navegador não ativou o 3D (WebGL), então mostro uma versão leve do sistema. Os planetas continuam clicáveis na lista abaixo.</p>
+    </div>
+    <div class="uni-hud">
+      <div class="uni-controls" role="group" aria-label="Controles da cena">
+        <button type="button" data-uni="in" aria-label="Aproximar">＋</button>
+        <button type="button" data-uni="out" aria-label="Afastar">－</button>
+        <button type="button" data-uni="pause" aria-pressed="false">Pausar órbitas</button>
+        <button type="button" data-uni="reset">Recentralizar</button>
+      </div>
+      <p class="uni-hint" aria-hidden="true">arraste · role · toque</p>
+    </div>
+    <div id="uni-card" class="uni-card" role="status" aria-live="polite" hidden></div>
+  </div>
+  <div class="planet-list" role="group" aria-label="Planetas">
+    <button type="button" data-planet="0"><i style="--c:#FF7A1A"></i>Engenharia Elétrica</button>
+    <button type="button" data-planet="1"><i style="--c:#FFC531"></i>Programação</button>
+    <button type="button" data-planet="2"><i style="--c:#FFE08A"></i>Robótica &amp; Arduino</button>
+    <button type="button" data-planet="3"><i style="--c:#FF9F4A"></i>Documentação em LaTeX</button>
+    <button type="button" data-planet="4"><i style="--c:#C9682A"></i>Física &amp; Astronomia</button>
+  </div>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H300 L330 50 H880 L910 30 H1200"/><path class="signal" d="M0 30 H300 L330 50 H880 L910 30 H1200"/><circle cx="330" cy="50" r="4"/><circle cx="880" cy="50" r="4"/></svg></div>
+
+<!-- 3. SOBRE -->
+<section id="sobre" class="section" aria-labelledby="sobre-title">
+  <header class="sec-head">
+    <p class="kicker">02 · Quem está no controle</p>
+    <h2 id="sobre-title">Sobre mim</h2>
+  </header>
+  <div class="about">
+    <div class="about-text glass">
+      <p class="about-lead">Sou estudante de Engenharia Elétrica, curiosa por natureza e apaixonada por compreender como as coisas funcionam. Tenho interesse em explorar a conexão entre ciência, programação, eletrônica e tecnologia. Este espaço reúne meus estudos, experimentos, projetos e descobertas ao longo da minha trajetória.</p>
+      <p>Na prática, isso vira relatórios de laboratório escritos em LaTeX, algoritmos numéricos em Python e circuitos com Arduino. No projeto de extensão em robótica do curso, preparei e ministrei uma aula prática de montagem de um semáforo com Arduino e protoboard.</p>
+      <div class="equation" aria-label="Equação de carga do capacitor: v C de t igual a V s vezes, um menos e elevado a menos t sobre R C">
+        <span class="eq-label">a equação que mais escrevi no semestre</span>
+        <span class="eq">v<sub>C</sub>(t) = V<sub>s</sub>(1 − e<sup>−t/RC</sup>)</span>
+        <span class="eq-label">τ = RC</span>
+      </div>
+    </div>
+    <dl class="facts glass">
+      <div><dt>Curso</dt><dd>Bacharelado em Engenharia Elétrica</dd></div>
+      <div><dt>Instituição</dt><dd>IFMT · Campus Pontes e Lacerda – Fronteira Oeste</dd></div>
+      <div><dt>De onde eu programo</dt><dd>Pontes e Lacerda, Mato Grosso, Brasil</dd></div>
+      <div><dt>Estudando agora</dt><dd>Python, métodos numéricos, análise de dados e documentação técnica</dd></div>
+      <div><dt>Fora da bancada</dt><dd>Física de partículas, astrofísica e astronomia</dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H520 L550 10 H650 L680 30 H1200"/><path class="signal" d="M0 30 H520 L550 10 H650 L680 30 H1200"/><circle cx="550" cy="10" r="4"/><circle cx="650" cy="10" r="4"/></svg></div>
+
+<!-- 4. LABORATÓRIO -->
+<section id="laboratorio" class="section" aria-labelledby="lab-title">
+  <header class="sec-head">
+    <p class="kicker">03 · Bancada</p>
+    <h2 id="lab-title">Laboratório de projetos</h2>
+    <p class="sec-sub">Cada repositório público vira um experimento. As demonstrações abaixo rodam no seu navegador e usam os mesmos valores dos meus trabalhos.</p>
+  </header>
+
+  <div class="lab">
+    <!-- EXP 01 -->
+    <article class="exp glass" id="exp-rc">
+      <header class="exp-head">
+        <span class="exp-id">EXP-01 · relatorios-latex</span>
+        <span class="status live">Em andamento</span>
+      </header>
+      <h3>Relatórios técnicos de Engenharia Elétrica</h3>
+      <p>Relatórios de laboratório e materiais de Circuitos Elétricos escritos em LaTeX, com o código-fonte, as figuras e o PDF compilado de cada trabalho.</p>
+      <dl class="exp-meta">
+        <div><dt>Objetivo</dt><dd>Documentar experimentos de circuitos com rigor técnico: carga e descarga RC, simulações no PSIM, motor de indução trifásico.</dd></div>
+        <div><dt>Tecnologias</dt><dd><ul class="tags"><li>LaTeX</li><li>circuitikz</li><li>pgfplots</li><li>tcolorbox</li><li>TikZ</li><li>PSIM</li></ul></dd></div>
+      </dl>
+      <div class="exp-actions">
+        <button type="button" class="btn small primary" aria-expanded="false" aria-controls="demo-rc" data-toggle="demo-rc">Abrir simulação RC</button>
+        <button type="button" class="btn small ghost" aria-expanded="false" aria-controls="docs-rc" data-toggle="docs-rc">Ver os 6 documentos</button>
+        <a class="btn small ghost" href="https://github.com/niinacanteiro/relatorios-latex" target="_blank" rel="noopener">Repositório ↗</a>
+      </div>
+      <div id="demo-rc" class="demo" hidden>
+        <div class="demo-grid">
+          <figure class="rc-fig"><img src="circuito-rc.png" width="923" height="558" loading="lazy" alt="Esquema do circuito RC do relatório: fonte E, chave S de três posições, resistores R1 e capacitor C"><figcaption>Circuito analisado no relatório (E = 10 V, R₁ = R₂ = 1 kΩ, C = 100 µF)</figcaption></figure>
+          <div class="rc-panel">
+            <div class="seg" role="radiogroup" aria-label="Modo">
+              <button type="button" role="radio" aria-checked="true" data-rc-mode="carga">Carga</button>
+              <button type="button" role="radio" aria-checked="false" data-rc-mode="descarga">Descarga</button>
+            </div>
+            <label>Tensão E <output id="rc-e-o">10 V</output><input type="range" id="rc-e" min="1" max="12" step="0.5" value="10"></label>
+            <label>Resistência R <output id="rc-r-o">1,0 kΩ</output><input type="range" id="rc-r" min="100" max="5000" step="100" value="1000"></label>
+            <label>Capacitância C <output id="rc-c-o">100 µF</output><input type="range" id="rc-c" min="10" max="1000" step="10" value="100"></label>
+            <p class="readout">τ = <b id="rc-tau">100 ms</b> · regime em ~5τ = <b id="rc-5tau">500 ms</b></p>
+            <p class="small-note">Na descarga do relatório, R<sub>eq</sub> = R₁ + R₂, então τ dobra.</p>
+          </div>
+        </div>
+        <canvas id="rc-canvas" class="plot" height="260" aria-label="Gráfico da tensão no capacitor ao longo do tempo"></canvas>
+      </div>
+      <div id="docs-rc" class="docs" hidden>
+        <ul>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/circuitos-ii-carga-descarga-rc/main.pdf" target="_blank" rel="noopener">Carga e descarga de capacitor em circuito RC</a><span>Circuitos Elétricos II</span></li>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/circuitos-ii-psim-iii/main.pdf" target="_blank" rel="noopener">Simulações de circuitos CA no PSIM</a><span>Circuitos Elétricos II</span></li>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/circuitos-motor-gaiola-esquilo/main.pdf" target="_blank" rel="noopener">Motor de indução tipo gaiola de esquilo</a><span>ensaio com carga</span></li>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/lista-exercicios-circuitos/main.pdf" target="_blank" rel="noopener">Lista de exercícios de circuitos</a><span>duas colunas</span></li>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/revisao-metodos-computacionais/main.pdf" target="_blank" rel="noopener">Revisão de Métodos Computacionais</a><span>amsmath</span></li>
+          <li><a href="https://github.com/niinacanteiro/relatorios-latex/blob/main/manual-tinkercad-semaforo-arduino/main.pdf" target="_blank" rel="noopener">Manual de semáforo com Arduino no Tinkercad</a><span>projeto de extensão</span></li>
+        </ul>
+        <div class="gallery">
+          <figure><img src="grafico-motor.webp" width="1100" height="731" loading="lazy" alt="Gráfico do motor de indução: corrente, fator de potência, velocidade e rendimento em função da potência de saída"><figcaption>Desempenho do motor de indução em função da potência de saída</figcaption></figure>
+          <figure><img src="psim-simulacao.webp" width="1100" height="613" loading="lazy" alt="Captura de uma simulação no PSIM mostrando a potência estabilizando após um transitório"><figcaption>Leitura de potência em uma simulação no PSIM</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- EXP 02 -->
+    <article class="exp glass" id="exp-interp">
+      <header class="exp-head">
+        <span class="exp-id">EXP-02 · Metodos_Computacionais</span>
+        <span class="status done">Concluído</span>
+      </header>
+      <h3>Interpolação quadrática em Python</h3>
+      <p>Atividades da disciplina de Métodos Computacionais em Jupyter Notebook: o polinômio de Newton de 2º grau estima o valor de uma função a partir de três pontos conhecidos, e o erro percentual mede a qualidade da aproximação.</p>
+      <dl class="exp-meta">
+        <div><dt>Objetivo</dt><dd>Estimar ln(2) usando os pontos x = 1, 4 e 6 e comparar com o valor verdadeiro.</dd></div>
+        <div><dt>Tecnologias</dt><dd><ul class="tags"><li>Python</li><li>Jupyter Notebook</li><li>math</li><li>métodos numéricos</li></ul></dd></div>
+      </dl>
+      <div class="exp-actions">
+        <button type="button" class="btn small primary" aria-expanded="false" aria-controls="demo-interp" data-toggle="demo-interp">Abrir demonstração</button>
+        <a class="btn small ghost" href="https://github.com/niinacanteiro/Metodos_Computacionais" target="_blank" rel="noopener">Repositório ↗</a>
+      </div>
+      <div id="demo-interp" class="demo" hidden>
+        <div class="demo-grid">
+          <pre class="code" aria-label="Trecho do notebook"><code><span class="c">## APLICANDO INTERPOLAÇÃO QUADRÁTICA</span>
+b0 = y0
+b1 = (y1 - y0) / (x1 - x0)
+b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
+
+<span class="k">def</span> f2(x):
+    <span class="k">return</span> b0 + b1*(x - x0) + b2*(x - x0)*(x - x1)</code></pre>
+          <div class="rc-panel">
+            <label>Ponto avaliado x <output id="ip-x-o">2,0</output><input type="range" id="ip-x" min="1" max="6" step="0.1" value="2"></label>
+            <p class="readout">ln(x) = <b id="ip-real">0,693147</b></p>
+            <p class="readout">f₂(x) = <b id="ip-aprox">0,565844</b></p>
+            <p class="readout">erro percentual = <b id="ip-err">18,4 %</b></p>
+            <p class="small-note">Pontos do notebook: (1; 0), (4; 1,386294), (6; 1,791759).</p>
+          </div>
+        </div>
+        <canvas id="ip-canvas" class="plot" height="260" aria-label="Gráfico de ln(x) e do polinômio interpolador"></canvas>
+      </div>
+    </article>
+
+    <!-- EXP 03 -->
+    <article class="exp glass" id="exp-semaforo">
+      <header class="exp-head">
+        <span class="exp-id">EXP-03 · Manual-de-Instrucao-LaTex</span>
+        <span class="status done">Concluído</span>
+      </header>
+      <h3>Semáforo com Arduino — manual de aula</h3>
+      <p>Manual escrito à mão em LaTeX para uma aula prática que ministrei no projeto de extensão em robótica do curso: a montagem de um semáforo com Arduino e protoboard.</p>
+      <dl class="exp-meta">
+        <div><dt>Objetivo</dt><dd>Guiar a turma na montagem e na programação do semáforo, passo a passo.</dd></div>
+        <div><dt>Tecnologias</dt><dd><ul class="tags"><li>Arduino</li><li>protoboard</li><li>Tinkercad</li><li>LaTeX</li><li>TikZ</li></ul></dd></div>
+      </dl>
+      <div class="exp-actions">
+        <button type="button" class="btn small primary" aria-expanded="false" aria-controls="demo-sem" data-toggle="demo-sem">Ligar o semáforo</button>
+        <a class="btn small ghost" href="https://github.com/niinacanteiro/Manual-de-Instrucao-LaTex" target="_blank" rel="noopener">Repositório ↗</a>
+      </div>
+      <div id="demo-sem" class="demo" hidden>
+        <div class="demo-grid sem-grid">
+          <div class="traffic" aria-hidden="true">
+            <span class="lamp red"></span><span class="lamp yellow"></span><span class="lamp green"></span>
+          </div>
+          <pre class="code" id="sem-code"><code><span class="k">int</span> vermelho = 13;
+<span class="k">int</span> amarelo = 12;
+<span class="k">int</span> verde = 11;
+
+<span class="k">void</span> loop() {
+<span class="ln" data-s="0">  digitalWrite(verde, HIGH);  delay(5000);</span>
+<span class="ln" data-s="1">  digitalWrite(amarelo, HIGH); delay(2000);</span>
+<span class="ln" data-s="2">  digitalWrite(vermelho, HIGH); delay(5000);</span>
+}</code></pre>
+          <div class="rc-panel">
+            <p class="readout" aria-live="polite">Estado: <b id="sem-state">verde</b> · <b id="sem-time">5,0 s</b></p>
+            <div class="seg">
+              <button type="button" id="sem-play" aria-pressed="true">Pausar</button>
+              <button type="button" id="sem-speed" aria-pressed="false">Velocidade 1×</button>
+            </div>
+            <p class="small-note">Tempos e pinos (13, 12, 11) iguais aos do código do manual.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- EXP 04 -->
+    <article class="exp glass exp-mini" id="exp-perfil">
+      <header class="exp-head">
+        <span class="exp-id">EXP-04 · niinacanteiro</span>
+        <span class="status live">Em andamento</span>
+      </header>
+      <h3>Este universo</h3>
+      <p>O perfil do GitHub e este site: HTML, CSS e JavaScript puros, cena 3D com Three.js, circuitos animados em canvas e uma cobra que come minhas contribuições, gerada por GitHub Actions.</p>
+      <div class="exp-actions">
+        <a class="btn small ghost" href="https://github.com/niinacanteiro/niinacanteiro" target="_blank" rel="noopener">Repositório ↗</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="stats glass" id="stats" aria-live="polite">
+    <p class="kicker">ao vivo · API pública do GitHub</p>
+    <div class="stat-row">
+      <div><b id="st-repos">—</b><span>repositórios públicos</span></div>
+      <div><b id="st-langs">—</b><span>linguagens nos repositórios</span></div>
+      <div><b id="st-push">—</b><span>último envio de código</span></div>
+    </div>
+    <p class="small-note" id="st-note">Carregando dados do GitHub…</p>
+  </div>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H200 L230 50 H970 L1000 30 H1200"/><path class="signal" d="M0 30 H200 L230 50 H970 L1000 30 H1200"/><circle cx="230" cy="50" r="4"/><circle cx="970" cy="50" r="4"/></svg></div>
+
+<!-- 5. CONHECIMENTOS -->
+<section id="conhecimentos" class="section" aria-labelledby="con-title">
+  <header class="sec-head">
+    <p class="kicker">04 · Painel</p>
+    <h2 id="con-title">Painel de conhecimentos</h2>
+    <p class="sec-sub">O que já usei de verdade, agrupado por área, cada item com a prova ao lado. Sem barrinhas de porcentagem: o que conta é o que está nos projetos.</p>
+  </header>
+  <div class="filters" role="group" aria-label="Filtrar por área">
+    <button type="button" aria-pressed="true" data-filter="all">Tudo</button>
+    <button type="button" aria-pressed="false" data-filter="prog">Programação</button>
+    <button type="button" aria-pressed="false" data-filter="ele">Engenharia Elétrica</button>
+    <button type="button" aria-pressed="false" data-filter="rob">Robótica e embarcados</button>
+    <button type="button" aria-pressed="false" data-filter="sim">Modelagem e simulação</button>
+    <button type="button" aria-pressed="false" data-filter="doc">Documentação técnica</button>
+    <button type="button" aria-pressed="false" data-filter="dados">Ferramentas e dados</button>
+  </div>
+  <div class="skills">
+    <article class="skill glass" data-cat="prog">
+      <h3>Programação</h3>
+      <ul class="icons">
+        <li><svg><use href="icons.svg#i-python"/></svg>Python</li>
+        <li><svg><use href="icons.svg#i-jupyter"/></svg>Jupyter Notebook</li>
+        <li><svg><use href="icons.svg#i-git"/></svg>Git</li>
+        <li><svg><use href="icons.svg#i-github"/></svg>GitHub</li>
+      </ul>
+      <p class="proof">Prova: <a href="https://github.com/niinacanteiro/Metodos_Computacionais" target="_blank" rel="noopener">Metodos_Computacionais</a></p>
+    </article>
+    <article class="skill glass" data-cat="ele">
+      <h3>Engenharia Elétrica</h3>
+      <ul class="plain">
+        <li>Transitórios em circuitos RC (carga e descarga)</li>
+        <li>Circuitos em corrente alternada e fator de potência</li>
+        <li>Motor de indução trifásico em delta</li>
+        <li>Medição de potência pelo método dos dois wattímetros</li>
+      </ul>
+      <p class="proof">Prova: <a href="https://github.com/niinacanteiro/relatorios-latex" target="_blank" rel="noopener">relatorios-latex</a></p>
+    </article>
+    <article class="skill glass" data-cat="rob">
+      <h3>Robótica, embarcados e automação</h3>
+      <ul class="icons">
+        <li><svg><use href="icons.svg#i-arduino"/></svg>Arduino</li>
+        <li><svg><use href="icons.svg#i-tinkercad"/></svg>Tinkercad Circuits</li>
+      </ul>
+      <ul class="plain">
+        <li>Saídas digitais e temporização (pinMode, digitalWrite, delay)</li>
+        <li>Montagem em protoboard · sequência de semáforo</li>
+        <li>Projeto de extensão em robótica do curso</li>
+      </ul>
+      <p class="proof">Prova: <a href="https://github.com/niinacanteiro/Manual-de-Instrucao-LaTex" target="_blank" rel="noopener">Manual-de-Instrucao-LaTex</a></p>
+    </article>
+    <article class="skill glass" data-cat="sim">
+      <h3>Modelagem e simulação</h3>
+      <ul class="plain">
+        <li>Simulação de circuitos CA no PSIM</li>
+        <li>Simulação de Arduino no Tinkercad</li>
+        <li>Interpolação polinomial e erro percentual</li>
+      </ul>
+      <p class="proof">Prova: <a href="https://github.com/niinacanteiro/relatorios-latex/tree/main/circuitos-ii-psim-iii" target="_blank" rel="noopener">simulações PSIM</a> · <a href="https://github.com/niinacanteiro/Metodos_Computacionais" target="_blank" rel="noopener">notebooks</a></p>
+    </article>
+    <article class="skill glass" data-cat="doc">
+      <h3>Documentação técnica</h3>
+      <ul class="icons">
+        <li><svg><use href="icons.svg#i-latex"/></svg>LaTeX</li>
+        <li><svg><use href="icons.svg#i-overleaf"/></svg>Overleaf</li>
+      </ul>
+      <ul class="plain">
+        <li>circuitikz · pgfplots · TikZ · tcolorbox · booktabs</li>
+      </ul>
+      <p class="proof">Prova: <a href="https://github.com/niinacanteiro/relatorios-latex" target="_blank" rel="noopener">relatorios-latex</a></p>
+    </article>
+    <article class="skill glass" data-cat="dados">
+      <h3>Ferramentas e dados</h3>
+      <ul class="icons">
+        <li><svg><use href="icons.svg#i-microsoftoffice"/></svg>Pacote Office</li>
+        <li><svg><use href="icons.svg#i-powerbi"/></svg>Power BI</li>
+      </ul>
+      <p class="proof">Ferramentas de produtividade e análise de dados que fazem parte do meu currículo.</p>
+    </article>
+  </div>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><path class="signal" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><circle cx="590" cy="10" r="4"/><circle cx="610" cy="10" r="4"/></svg></div>
+
+<!-- 6. CONSTELAÇÕES -->
+<section id="constelacoes" class="section" aria-labelledby="map-title">
+  <header class="sec-head">
+    <p class="kicker">05 · Carta celeste</p>
+    <h2 id="map-title">Mapa de constelações</h2>
+    <p class="sec-sub">Estrelas grandes são áreas; as pequenas são projetos. As linhas mostram o que se conecta. Escolha uma estrela.</p>
+  </header>
+  <div class="sky glass">
+    <div class="sky-map" id="sky-map">
+      <svg class="sky-lines" id="sky-lines" aria-hidden="true"></svg>
+      <!-- estrelas inseridas via JS a partir de dados reais -->
+    </div>
+    <aside class="sky-panel" id="sky-panel" aria-live="polite">
+      <p class="kicker" id="sky-type">carta celeste</p>
+      <h3 id="sky-title">Escolha uma estrela</h3>
+      <p id="sky-desc">Cada ponto de luz representa uma área de conhecimento ou um projeto real dos meus repositórios. Use o mouse, o toque ou a tecla Tab.</p>
+      <div id="sky-links" class="sky-links"></div>
+    </aside>
+  </div>
+</section>
+
+<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><path class="signal" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><circle cx="450" cy="10" r="4"/><circle cx="750" cy="10" r="4"/></svg></div>
+
+<!-- 7. CONTATO -->
+<section id="contato" class="section contact" aria-labelledby="ct-title">
+  <p class="kicker">06 · Sinal aberto</p>
+  <h2 id="ct-title">Vamos conectar os pontos?</h2>
+  <p class="sec-sub">Estou aberta a oportunidades, projetos e conversas sobre engenharia, programação e ciência.</p>
+  <div class="cta center">
+    <a class="btn primary" href="https://www.linkedin.com/in/nicoly-canteiro" target="_blank" rel="noopener"><svg><use href="icons.svg#i-linkedin"/></svg>LinkedIn</a>
+    <a class="btn ghost" href="https://github.com/niinacanteiro" target="_blank" rel="noopener"><svg><use href="icons.svg#i-github"/></svg>GitHub</a>
+  </div>
+  <figure class="snake">
+    <img src="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake-dark.svg" loading="lazy" alt="Gráfico de contribuições no GitHub sendo percorrido por uma cobra animada" onerror="this.closest('figure').hidden=true">
+    <figcaption>Minhas contribuições no GitHub, atualizadas automaticamente</figcaption>
+  </figure>
+</section>
+</main>
+
+<footer class="footer">
+  <p>Feito à mão por <b>Nicoly Canteiro</b> · Pontes e Lacerda, MT · <span id="year">2026</span></p>
+  <p><a href="https://github.com/niinacanteiro/niinacanteiro/tree/main/docs" target="_blank" rel="noopener">código-fonte deste site</a> · <a href="#inicio">voltar ao topo ↑</a></p>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
