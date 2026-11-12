@@ -42,28 +42,14 @@ nina = {
 
 ## 📂 Projetos em destaque
 
-<div align="center">
-
-<a href="https://github.com/niinacanteiro/Metodos_Computacionais">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=niinacanteiro&repo=Metodos_Computacionais&theme=tokyonight&hide_border=true" />
-</a>
-<a href="https://github.com/niinacanteiro/Manual-de-Instrucao-LaTex">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=niinacanteiro&repo=Manual-de-Instrucao-LaTex&theme=tokyonight&hide_border=true" />
-</a>
-
-</div>
-
-- **Métodos Computacionais**: interpolação quadrática em Python
-- **Manual de Instrução em LaTeX**: manual de aula prática de semáforo com Arduino
+- 🐍 [**Métodos Computacionais**](https://github.com/niinacanteiro/Metodos_Computacionais): interpolação quadrática em Python
+- 🚦 [**Manual de Instrução em LaTeX**](https://github.com/niinacanteiro/Manual-de-Instrucao-LaTex): manual de aula prática de semáforo com Arduino
 
 ---
 
-## 📈 GitHub Stats
+## 📈 Atividade
 
 <div align="center">
-
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=niinacanteiro&show_icons=true&theme=tokyonight&hide_border=true" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=niinacanteiro&layout=compact&theme=tokyonight&hide_border=true" />
 
 <img src="https://streak-stats.demolab.com?user=niinacanteiro&theme=tokyonight&hide_border=true" />
 
