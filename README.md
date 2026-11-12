@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0D1117,50:7F5AF0,100:2CB67D&height=220&section=header&text=Nicoly%20Canteiro&fontSize=54&fontColor=ffffff&animation=twinkling&desc=Engenharia%20El%C3%A9trica%20%E2%80%A2%20C%C3%B3digo%20%E2%80%A2%20Universo&descAlignY=72&descSize=18" width="100%" />
+<img src="./header.svg" width="100%" alt="Nicoly Canteiro" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=2600&pause=800&color=2CB67D&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
 
@@ -11,9 +11,9 @@
 </div>
 
 > [!TIP]
-> Este perfil é interativo: dá para **girar o raio 3D**, **dar zoom no mapa** e **abrir as seções** escondidas. Tudo renderizado pelo próprio GitHub, sem site externo.
+> Este perfil é interativo: dá para **girar o raio 3D**, ver **as estrelas piscando** e **a luz correndo pelo circuito**, **dar zoom no mapa** e **abrir as seções** escondidas. Tudo renderizado pelo próprio GitHub, sem site externo.
 
----
+<img src="./divider.svg" width="100%" />
 
 ## `whoami`
 
@@ -27,7 +27,7 @@ nina = {
 }
 ```
 
----
+<img src="./divider.svg" width="100%" />
 
 ## 🧠 Mapa mental
 
@@ -51,7 +51,7 @@ mindmap
       Tinkercad
 ```
 
----
+<img src="./divider.svg" width="100%" />
 
 ## ⚡ A equação que mais escrevi este semestre
 
@@ -61,7 +61,7 @@ $$
 v_C(t) = V_s\left(1 - e^{-t/RC}\right), \qquad \tau = RC
 $$
 
----
+<img src="./divider.svg" width="100%" />
 
 ## 🧊 Um raio em 3D (gire com o mouse ou o dedo)
 
@@ -238,7 +238,7 @@ endfacet
 endsolid raio
 ```
 
----
+<img src="./divider.svg" width="100%" />
 
 ## 🌎 Daqui eu programo
 
@@ -255,7 +255,7 @@ endsolid raio
 }
 ```
 
----
+<img src="./divider.svg" width="100%" />
 
 ## 📂 Projetos
 
@@ -283,7 +283,7 @@ endsolid raio
 
 </details>
 
----
+<img src="./divider.svg" width="100%" />
 
 ## 🐍 A cobra que come minhas contribuições
 
@@ -299,12 +299,12 @@ endsolid raio
 
 </div>
 
----
+<img src="./divider.svg" width="100%" />
 
 <div align="center">
 
 <a href="https://www.linkedin.com/in/nicoly-canteiro"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2CB67D,100:7F5AF0&height=110&section=footer" width="100%" />
+<img src="./divider.svg" width="100%" />
 
 </div>
