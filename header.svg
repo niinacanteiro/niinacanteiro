@@ -36,9 +36,19 @@
  <animate attributeName="opacity" values="1;.82;1" dur="5s" repeatCount="indefinite"/>
 </circle>
 <!-- anel de fótons -->
-<circle cx="600" cy="-10" r="194" fill="none" stroke="url(#ringg)" stroke-width="16" filter="url(#b8)" opacity=".9"/>
+<circle cx="600" cy="-10" r="194" fill="none" stroke="url(#ringg)" stroke-width="16" filter="url(#b8)" opacity=".9"><animate attributeName="stroke-width" values="14;24;14" dur="3.5s" repeatCount="indefinite"/></circle>
 <circle cx="600" cy="-10" r="191" fill="none" stroke="url(#ringg)" stroke-width="4" filter="url(#b3)"/>
 <circle cx="600" cy="-10" r="190" fill="none" stroke="#FFFFFF" stroke-width="1.6" opacity=".95"/>
+<!-- brilho girando no anel -->
+<g filter="url(#b3)">
+ <animateTransform attributeName="transform" type="rotate" from="0 600 -10" to="360 600 -10" dur="9s" repeatCount="indefinite"/>
+ <circle cx="600" cy="-10" r="192" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-dasharray="90 1104" stroke-linecap="round" opacity=".9"/>
+ <circle cx="600" cy="-10" r="192" fill="none" stroke="#FFC531" stroke-width="9" stroke-dasharray="40 557" stroke-dashoffset="200" stroke-linecap="round" opacity=".6"/>
+</g>
+<g filter="url(#b8)">
+ <animateTransform attributeName="transform" type="rotate" from="360 600 -10" to="0 600 -10" dur="14s" repeatCount="indefinite"/>
+ <circle cx="600" cy="-10" r="206" fill="none" stroke="#FF8A20" stroke-width="10" stroke-dasharray="160 1134" opacity=".7"/>
+</g>
 <!-- horizonte de eventos -->
 <circle cx="600" cy="-10" r="189" fill="#000"/>
 <!-- lente gravitacional interna -->
@@ -50,6 +60,7 @@
  <animate attributeName="rx" values="430;470;430" dur="6s" repeatCount="indefinite"/>
 </ellipse>
 <rect x="240" y="17" width="720" height="1.4" fill="url(#disk)"/>
+<ellipse cx="300" cy="18" rx="70" ry="2.5" fill="#FFF6E0" filter="url(#b3)" opacity=".9"><animate attributeName="cx" values="120;1080;120" dur="7s" repeatCount="indefinite"/></ellipse>
 <!-- poeira orbitando o anel -->
 <g>
  <animateTransform attributeName="transform" type="rotate" from="0 600 -10" to="360 600 -10" dur="40s" repeatCount="indefinite"/>
