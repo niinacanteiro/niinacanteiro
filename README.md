@@ -247,23 +247,6 @@ endsolid raio
 
 <img src="./divider.svg" width="100%" />
 
-## 🌎 Daqui eu programo
-
-```geojson
-{
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": { "name": "Pontes e Lacerda - MT", "marker-color": "#FF7A1A", "marker-symbol": "star" },
-      "geometry": { "type": "Point", "coordinates": [-59.335, -15.226] }
-    }
-  ]
-}
-```
-
-<img src="./divider.svg" width="100%" />
-
 ## 📂 Projetos
 
 | | Projeto | O que tem |
@@ -293,13 +276,23 @@ endsolid raio
 
 <img src="./divider.svg" width="100%" />
 
-## 🐍 A cobra que come minhas contribuições
+## 🎮 Jogue a cobrinha
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake.svg" />
-  <img alt="cobra de contribuições" src="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake.svg" />
-</picture>
+A cobra anda sozinha aqui, mas no meu portfólio é você quem controla: use as setas, W A S D ou deslize o dedo para comer meus dias de código.
+
+<a href="https://niinacanteiro.github.io/niinacanteiro/#cobrinha">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake.svg" />
+    <img alt="cobrinha das contribuições: clique para jogar" src="https://raw.githubusercontent.com/niinacanteiro/niinacanteiro/output/github-snake.svg" />
+  </picture>
+</a>
+
+<div align="center">
+
+<a href="https://niinacanteiro.github.io/niinacanteiro/#cobrinha"><img src="https://img.shields.io/badge/%F0%9F%8E%AE_JOGAR_A_COBRINHA-8B4513?style=for-the-badge&labelColor=FF7A1A" alt="Jogar a cobrinha" /></a>
+
+</div>
 
 <div align="center">
 
