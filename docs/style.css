@@ -357,3 +357,10 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 .star span{background:rgba(12,6,3,.6);padding:3px 9px;border-radius:999px;border:1px solid rgba(255,197,49,.18);margin-top:4px}
 .star.area span{border-color:rgba(255,197,49,.45);color:#FFE2A8;letter-spacing:.04em}
 .star[aria-pressed="true"] span{border-color:#FFC531;color:#FFC531;box-shadow:0 0 14px rgba(255,170,60,.45)}
+
+/* faixa de ferramentas elegante (substitui a colmeia) */
+.toolbelt{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0;padding:0;max-width:520px}
+.toolbelt li{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,214,160,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .25s,border-color .25s,background .25s}
+.toolbelt li:hover{transform:translateY(-3px);border-color:rgba(255,197,49,.55);background:rgba(255,197,49,.08)}
+.toolbelt svg{width:22px;height:22px;opacity:.9}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

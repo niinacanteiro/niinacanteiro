@@ -1,7 +1,7 @@
 // Buraco negro em tempo real (WebGL puro): raios de luz curvados pela gravidade,
 // disco de acreção roxo e violeta girando em espiral, com uma nebulosa/galáxia se movendo ao fundo, com efeito Doppler e estrelas lenteadas.
 export function initHero(canvas, { reduced = false } = {}) {
-  const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+  const gl = canvas.getContext('webgl', { antialias: true, alpha: false, powerPreference: 'high-performance' });
   if (!gl) return null;
 
   const vs = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
@@ -104,7 +104,7 @@ export function initHero(canvas, { reduced = false } = {}) {
   const U = n => gl.getUniformLocation(pr, n);
   const uRes = U('res'), uT = U('t'), uM = U('m'), uC = U('ctr'), uZ = U('zoomK');
 
-  let scale = .6, w = 0, h = 0;
+  let scale = 1, w = 0, h = 0;
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   function resize() {
     const r = canvas.getBoundingClientRect();
@@ -123,7 +123,7 @@ export function initHero(canvas, { reduced = false } = {}) {
     const dt = now - last; last = now;
     // ajuste automático de resolução para manter a fluidez
     frames++; tAcc += dt;
-    if (frames === 40) { const avg = tAcc / frames; if (avg > 24 && scale > .34) { scale *= .8; resize(); } else if (avg < 13 && scale < .85) { scale *= 1.12; resize(); } frames = 0; tAcc = 0; }
+    if (frames === 40) { const avg = tAcc / frames; if (avg > 34 && scale > .7) { scale *= .9; resize(); } else if (avg < 18 && scale < 1) { scale = Math.min(1, scale * 1.1); resize(); } frames = 0; tAcc = 0; }
     mouse.x += (mouse.tx - mouse.x) * .04; mouse.y += (mouse.ty - mouse.y) * .04;
     const wide = canvas.clientWidth > 900;
     gl.uniform2f(uRes, w, h);
