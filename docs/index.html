@@ -16,7 +16,9 @@
 <script type="importmap">
 { "imports": {
   "three": "./three.module.min.js",
-  "three/addons/controls/OrbitControls.js": "./OrbitControls.js"
+  "three/addons/controls/OrbitControls.js": "./OrbitControls.js",
+  "three/addons/postprocessing/": "./",
+  "three/addons/shaders/": "./"
 } }
 </script>
 </head>
@@ -50,7 +52,7 @@
     <a href="#sobre">Sobre</a>
     <a href="#laboratorio">Laboratório</a>
     <a href="#conhecimentos">Conhecimentos</a>
-    <a href="#cobrinha">Cobrinha</a>
+    <a href="#cobrinha">Jogos</a>
     <a href="#constelacoes">Constelações</a>
     <a href="#contato">Contato</a>
   </nav>
@@ -63,71 +65,37 @@
 <main>
 <!-- 1. IDENTIDADE -->
 <section id="inicio" class="hero" aria-labelledby="hero-title">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <svg class="horizon" viewBox="0 0 800 420" aria-hidden="true">
-    <defs>
-      <radialGradient id="hg" cx="50%" cy="40%" r="50%"><stop offset="0" stop-color="#FFC531" stop-opacity=".55"/><stop offset=".45" stop-color="#FF7A1A" stop-opacity=".28"/><stop offset="1" stop-color="#FF7A1A" stop-opacity="0"/></radialGradient>
-      <linearGradient id="ring" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7A1A" stop-opacity="0"/><stop offset=".55" stop-color="#FF9A3A"/><stop offset="1" stop-color="#FFF6EA"/></linearGradient>
-      <linearGradient id="band" x1="0" x2="1"><stop offset="0" stop-color="#FF7A1A" stop-opacity="0"/><stop offset=".5" stop-color="#FFE08A"/><stop offset="1" stop-color="#FF7A1A" stop-opacity="0"/></linearGradient>
-      <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
-      <filter id="blur3"><feGaussianBlur stdDeviation="3"/></filter>
-    </defs>
-    <ellipse cx="400" cy="120" rx="390" ry="260" fill="url(#hg)"/>
-    <ellipse class="h-band" cx="400" cy="60" rx="380" ry="7" fill="url(#band)" filter="url(#blur3)"/>
-    <ellipse cx="400" cy="70" rx="165" ry="150" fill="none" stroke="url(#ring)" stroke-width="26" filter="url(#blur8)"/>
-    <ellipse cx="400" cy="70" rx="160" ry="145" fill="none" stroke="url(#ring)" stroke-width="5"/>
-    <ellipse cx="400" cy="62" rx="146" ry="128" fill="#0A0806"/>
-  </svg>
-
+  <canvas id="hero-gl" aria-hidden="true"></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-text">
       <p class="chip"><span class="dot"></span> Portfólio de engenharia · IFMT</p>
       <h1 id="hero-title" class="name">NICOLY<br><span>CANTEIRO</span></h1>
-      <p class="signature">ENGENHARIA ELÉTRICA <i>·</i> PROGRAMAÇÃO <i>·</i> ROBÓTICA <i>·</i> TECNOLOGIA</p>
+      <p class="signature" aria-label="Engenharia Elétrica, Programação, Robótica, Tecnologia"><span id="typed" aria-hidden="true">ENGENHARIA ELÉTRICA</span><span class="caret" aria-hidden="true"></span></p>
       <p class="lede">Estudante de Engenharia Elétrica explorando o caminho entre a equação, o código e o circuito montado na bancada. Aqui ficam meus experimentos — com dados reais, direto dos meus repositórios.</p>
       <div class="cta">
         <a class="btn primary" href="#universo">Explorar o universo</a>
         <a class="btn ghost" href="#laboratorio">Ver experimentos</a>
       </div>
     </div>
-    <div class="orbit-wrap" aria-hidden="true">
-      <div class="orbit-grid"></div>
-      <div class="orbit">
-        <span class="tile" style="--a:0deg" title="Python"><svg><use href="icons.svg#i-python"/></svg></span>
-        <span class="tile" style="--a:45deg" title="Jupyter"><svg><use href="icons.svg#i-jupyter"/></svg></span>
-        <span class="tile" style="--a:90deg" title="LaTeX"><svg><use href="icons.svg#i-latex"/></svg></span>
-        <span class="tile" style="--a:135deg" title="Overleaf"><svg><use href="icons.svg#i-overleaf"/></svg></span>
-        <span class="tile" style="--a:180deg" title="Arduino"><svg><use href="icons.svg#i-arduino"/></svg></span>
-        <span class="tile" style="--a:225deg" title="Tinkercad"><svg><use href="icons.svg#i-tinkercad"/></svg></span>
-        <span class="tile" style="--a:270deg" title="Git"><svg><use href="icons.svg#i-git"/></svg></span>
-        <span class="tile" style="--a:315deg" title="GitHub"><svg><use href="icons.svg#i-github"/></svg></span>
-      </div>
-      <div class="core"><svg viewBox="0 0 32 32"><path d="M18 3 7 18h7l-2 11 11-15h-7z" fill="currentColor"/></svg></div>
-    </div>
   </div>
   <a class="scroll-hint" href="#universo">role para explorar <span aria-hidden="true">↓</span></a>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><path class="signal" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><circle cx="450" cy="10" r="4"/><circle cx="750" cy="10" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
 <!-- 2. UNIVERSO 3D -->
 <section id="universo" class="section" aria-labelledby="uni-title">
   <header class="sec-head">
     <p class="kicker">01 · Observatório</p>
-    <h2 id="uni-title">Universo 3D</h2>
-    <p class="sec-sub">Cada planeta é uma área que eu estudo, girando em torno do mesmo núcleo: curiosidade. Arraste para girar, role ou faça pinça para aproximar, toque num planeta para saber mais.</p>
+    <h2 id="uni-title">Sistema Solar</h2>
+    <p class="sec-sub">O Sistema Solar em 3D, com texturas reais dos planetas e o Sol iluminando tudo em tempo real. Cada planeta guarda uma área que eu estudo. Arraste para girar, faça pinça para aproximar e toque num planeta.</p>
   </header>
   <div class="universe glass">
-    <div id="uni-stage" class="uni-stage" role="img" aria-label="Cena 3D com um núcleo luminoso e planetas em órbita representando áreas de estudo"></div>
+    <div id="uni-stage" class="uni-stage" role="img" aria-label="Sistema Solar em 3D com o Sol e os oito planetas em órbita"></div>
+    <div id="uni-loading" class="uni-loading" aria-hidden="true"><span></span>carregando o Sistema Solar…</div>
     <div id="uni-fallback" class="uni-fallback" hidden>
-      <div class="fb-system" aria-hidden="true">
-        <div class="fb-sun"></div>
-        <div class="fb-orbit o1"><span></span></div>
-        <div class="fb-orbit o2"><span></span></div>
-        <div class="fb-orbit o3"><span></span></div>
-        <div class="fb-orbit o4"><span></span></div>
-      </div>
-      <p class="fb-note">Seu navegador não ativou o 3D (WebGL), então mostro uma versão leve do sistema. Os planetas continuam clicáveis na lista abaixo.</p>
+      <p class="fb-note">Seu navegador não ativou o 3D (WebGL), então o Sistema Solar 3D não pode ser exibido aqui. Os planetas continuam clicáveis na lista abaixo.</p>
     </div>
     <div class="uni-hud">
       <div class="uni-controls" role="group" aria-label="Controles da cena">
@@ -141,15 +109,18 @@
     <div id="uni-card" class="uni-card" role="status" aria-live="polite" hidden></div>
   </div>
   <div class="planet-list" role="group" aria-label="Planetas">
-    <button type="button" data-planet="0"><i style="--c:#FF7A1A"></i>Engenharia Elétrica</button>
-    <button type="button" data-planet="1"><i style="--c:#FFC531"></i>Programação</button>
-    <button type="button" data-planet="2"><i style="--c:#FFE08A"></i>Robótica &amp; Arduino</button>
-    <button type="button" data-planet="3"><i style="--c:#FF9F4A"></i>Documentação em LaTeX</button>
-    <button type="button" data-planet="4"><i style="--c:#C9682A"></i>Física &amp; Astronomia</button>
+    <button type="button" data-planet="0"><i style="--c:#B1ADA6"></i>Mercúrio</button>
+    <button type="button" data-planet="1"><i style="--c:#E8C48A"></i>Vênus</button>
+    <button type="button" data-planet="2"><i style="--c:#3D7CC9"></i>Terra</button>
+    <button type="button" data-planet="3"><i style="--c:#C1440E"></i>Marte</button>
+    <button type="button" data-planet="4"><i style="--c:#C99E6E"></i>Júpiter</button>
+    <button type="button" data-planet="5"><i style="--c:#E3CB8F"></i>Saturno</button>
+    <button type="button" data-planet="6"><i style="--c:#9FDDE6"></i>Urano</button>
+    <button type="button" data-planet="7"><i style="--c:#3E66D1"></i>Netuno</button>
   </div>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H300 L330 50 H880 L910 30 H1200"/><path class="signal" d="M0 30 H300 L330 50 H880 L910 30 H1200"/><circle cx="330" cy="50" r="4"/><circle cx="880" cy="50" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
 <!-- 3. SOBRE -->
 <section id="sobre" class="section" aria-labelledby="sobre-title">
@@ -176,7 +147,7 @@
   </div>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H520 L550 10 H650 L680 30 H1200"/><path class="signal" d="M0 30 H520 L550 10 H650 L680 30 H1200"/><circle cx="550" cy="10" r="4"/><circle cx="650" cy="10" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
 <!-- 4. LABORATÓRIO -->
 <section id="laboratorio" class="section" aria-labelledby="lab-title">
@@ -362,7 +333,7 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
   </div>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H200 L230 50 H970 L1000 30 H1200"/><path class="signal" d="M0 30 H200 L230 50 H970 L1000 30 H1200"/><circle cx="230" cy="50" r="4"/><circle cx="970" cy="50" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
 <!-- 5. CONHECIMENTOS -->
 <section id="conhecimentos" class="section" aria-labelledby="con-title">
@@ -445,27 +416,34 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
   </div>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><path class="signal" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><circle cx="590" cy="10" r="4"/><circle cx="610" cy="10" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
-<!-- 6b. COBRINHA -->
-<section id="cobrinha" class="section" aria-labelledby="snake-title">
+<!-- 6b. FLIPERAMA -->
+<section id="cobrinha" class="section" aria-labelledby="arcade-title">
   <header class="sec-head">
     <p class="kicker">06 · Pausa para brincar</p>
-    <h2 id="snake-title">A cobrinha das contribuições</h2>
-    <p class="sec-sub">O tabuleiro é o meu gráfico de contribuições do GitHub. Guie a cobra e coma os quadradinhos acesos: quanto mais forte o dia, mais pontos.</p>
+    <h2 id="arcade-title">Fliperama</h2>
+    <p class="sec-sub">Quatro joguinhos feitos à mão para uma pausa entre um circuito e outro. Escolha um e tente bater o seu recorde.</p>
   </header>
-  <div class="snake glass">
-    <div class="snake-top">
-      <p class="readout">Pontos <b id="sn-score">0</b> · Recorde <b id="sn-best">0</b></p>
-      <button type="button" class="btn small primary" id="sn-start">Jogar</button>
+  <div class="arcade glass" id="arcade">
+    <div class="ar-tabs" role="tablist" aria-label="Jogos">
+      <button type="button" role="tab" data-game="snake" aria-selected="true">Cobrinha</button>
+      <button type="button" role="tab" data-game="memory" aria-selected="false">Memória dos Planetas</button>
+      <button type="button" role="tab" data-game="2048" aria-selected="false">2048</button>
+      <button type="button" role="tab" data-game="rocket" aria-selected="false">Foguete</button>
     </div>
-    <div class="snake-stage"><canvas id="sn-canvas" width="530" height="90" aria-label="Jogo da cobrinha sobre o gráfico de contribuições"></canvas>
-      <p class="snake-msg" id="sn-msg">Toque em Jogar. Use as setas, W A S D, deslize o dedo ou os botões.</p></div>
-    <div class="dpad" aria-label="Controles">
-      <button type="button" data-d="up" aria-label="Cima">▲</button>
-      <button type="button" data-d="left" aria-label="Esquerda">◀</button>
-      <button type="button" data-d="down" aria-label="Baixo">▼</button>
-      <button type="button" data-d="right" aria-label="Direita">▶</button>
+    <div class="ar-top">
+      <p class="readout">Pontos <b id="ar-score">0</b> · Recorde <b id="ar-best">0</b></p>
+    </div>
+    <div class="ar-stage">
+      <canvas id="ar-canvas" tabindex="0" aria-label="Área do jogo"></canvas>
+      <div class="ar-overlay"><p id="ar-msg"></p><button type="button" class="btn primary" id="ar-start">Jogar</button></div>
+    </div>
+    <div class="dpad" id="ar-dpad" aria-label="Controles">
+      <button type="button" data-d="0,-1" class="u" aria-label="Cima">▲</button>
+      <button type="button" data-d="-1,0" class="l" aria-label="Esquerda">◀</button>
+      <button type="button" data-d="0,1" class="d" aria-label="Baixo">▼</button>
+      <button type="button" data-d="1,0" class="r" aria-label="Direita">▶</button>
     </div>
   </div>
 </section>
@@ -491,7 +469,7 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
   </div>
 </section>
 
-<div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><path class="signal" d="M0 30 H420 L450 10 H750 L780 30 H1200"/><circle cx="450" cy="10" r="4"/><circle cx="750" cy="10" r="4"/></svg></div>
+<div class="divider" aria-hidden="true"><span></span></div>
 
 <!-- 7. CONTATO -->
 <section id="contato" class="section contact" aria-labelledby="ct-title">
@@ -512,9 +490,10 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
 <footer class="footer">
   <p>Feito à mão por <b>Nicoly Canteiro</b> · <span id="year">2026</span></p>
   <p><a href="https://github.com/niinacanteiro/niinacanteiro/tree/main/docs" target="_blank" rel="noopener">código-fonte deste site</a> · <a href="#inicio">voltar ao topo ↑</a></p>
+  <p class="credit">Texturas dos planetas: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0) · 3D com Three.js</p>
 </footer>
 
 <script type="module" src="main.js"></script>
-<script src="cobrinha.js" defer></script>
+<script src="jogos.js" defer></script>
 </body>
 </html>

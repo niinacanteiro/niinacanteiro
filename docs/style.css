@@ -56,15 +56,16 @@ svg use{fill:currentColor}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:120px clamp(20px,6vw,96px) 80px}
-#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.horizon{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:min(900px,130vw);z-index:1;pointer-events:none;animation:breathe 7s ease-in-out infinite}
+#hero-gl{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block;background:#050302}
+#hero-gl.off{background:radial-gradient(600px 400px at 70% 45%,rgba(255,122,26,.25),transparent 70%),#050302}
+.hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,3,2,.82) 0%,rgba(5,3,2,.45) 38%,transparent 62%),linear-gradient(to top,var(--bg) 0%,transparent 22%)}
 @keyframes breathe{50%{opacity:.82;transform:translateX(-50%) scale(1.02)}}
-.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;max-width:1280px;margin:80px auto 0;width:100%}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,640px) 1fr;gap:40px;align-items:center;max-width:1280px;margin:80px auto 0;width:100%}
 .chip{display:inline-flex;align-items:center;gap:10px;font:500 13px var(--f-mono);color:var(--gold);padding:7px 14px;border-radius:999px;border:1px solid var(--glass-b);background:rgba(255,122,26,.08);margin:0 0 22px}
 .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:blink 2s infinite}
 @keyframes blink{50%{opacity:.3}}
-.name{font:700 clamp(46px,8.6vw,118px)/.92 var(--f-title);letter-spacing:.01em;margin:0;text-shadow:0 0 40px rgba(255,122,26,.25)}
-.name span{background:linear-gradient(92deg,var(--orange),var(--amber) 55%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.name{font:200 clamp(40px,7vw,104px)/1 "Montserrat",var(--f-title);letter-spacing:.14em;margin:0;text-shadow:0 0 30px rgba(255,122,26,.22)}
+.name span{font-weight:300;background:linear-gradient(92deg,var(--orange),var(--amber) 55%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
 .signature{font:500 clamp(11px,1.25vw,14px) var(--f-mono);letter-spacing:.22em;color:var(--gold);margin:22px 0 0}
 .signature i{color:var(--orange);font-style:normal;padding:0 .2em}
 .lede{color:var(--muted);max-width:56ch;font-size:clamp(15px,1.3vw,18px);margin:22px 0 32px}
@@ -80,30 +81,10 @@ svg use{fill:currentColor}
 .scroll-hint:hover{color:var(--gold)}
 
 /* órbita de ícones */
-.orbit-wrap{position:relative;aspect-ratio:1;width:min(460px,100%);justify-self:center}
-.orbit-grid{position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle,transparent 31%,var(--line) 31.3%,transparent 31.8%),radial-gradient(circle,transparent 49%,var(--line) 49.3%,transparent 49.8%),
-  linear-gradient(transparent 49.85%,var(--line) 49.85%,var(--line) 50.15%,transparent 50.15%),linear-gradient(90deg,transparent 49.85%,var(--line) 49.85%,var(--line) 50.15%,transparent 50.15%)}
-.orbit{position:absolute;inset:0;animation:spin 60s linear infinite}
-.tile{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px;border-radius:16px;display:grid;place-items:center;color:var(--amber);
-  background:linear-gradient(145deg,rgba(255,170,80,.12),rgba(255,170,80,.03));border:1px solid var(--glass-b);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  box-shadow:0 10px 30px -10px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,240,210,.08);
-  transform:rotate(var(--a)) translate(clamp(120px,19vw,200px)) rotate(calc(-1 * var(--a)))}
-.tile svg{width:30px;height:30px;animation:spin 60s linear infinite reverse;filter:drop-shadow(0 0 6px rgba(255,197,49,.45))}
-.core{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px;border-radius:50%;display:grid;place-items:center;color:#1a0f00;
-  background:radial-gradient(circle at 35% 30%,var(--gold),var(--amber) 40%,var(--orange));box-shadow:0 0 50px 10px rgba(255,122,26,.45),0 0 120px 30px rgba(255,122,26,.18)}
-.core svg{width:44px;height:44px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- barramentos entre seções ---------- */
-.bus{height:60px;max-width:1200px;margin:0 auto;padding:0 20px}
-.bus svg{width:100%;height:100%;overflow:visible}
-.bus .trace{fill:none;stroke:rgba(255,197,49,calc(.12 + var(--heat) * .3));stroke-width:2;vector-effect:non-scaling-stroke}
-.bus .signal{fill:none;stroke:var(--amber);stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:60 1400;animation:signal 3.6s linear infinite;filter:drop-shadow(0 0 5px var(--orange));opacity:calc(.55 + var(--heat) * .45)}
-.bus circle{fill:var(--orange);animation:blink 1.8s ease-in-out infinite;filter:drop-shadow(0 0 5px var(--orange))}
-.bus circle:nth-of-type(2){animation-delay:.9s}
 @keyframes signal{from{stroke-dashoffset:1460}to{stroke-dashoffset:0}}
-.bus.fast .signal{animation-duration:1.4s}
 
 /* ---------- seções ---------- */
 .section{position:relative;max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,40px)}
@@ -132,10 +113,6 @@ h3{font:600 21px/1.25 var(--f-title);margin:0 0 10px}
 .planet-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .planet-list i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:8px;box-shadow:0 0 8px var(--c)}
 .uni-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:20px 20px 90px}
-.fb-system{position:relative;width:min(340px,70vw);aspect-ratio:1}
-.fb-sun{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold),var(--orange));box-shadow:0 0 50px rgba(255,122,26,.7)}
-.fb-orbit{position:absolute;left:50%;top:50%;border:1px dashed rgba(255,197,49,.25);border-radius:50%;animation:spin linear infinite}
-.fb-orbit span{position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
 .o1{width:40%;height:40%;margin:-20%;animation-duration:9s}.o2{width:60%;height:60%;margin:-30%;animation-duration:14s}.o2 span{background:var(--orange)}
 .o3{width:80%;height:80%;margin:-40%;animation-duration:20s}.o3 span{background:var(--gold)}.o4{width:100%;height:100%;margin:-50%;animation-duration:28s}
 .fb-note{position:absolute;top:16px;left:16px;right:16px;margin:0;color:var(--muted);font-size:14px;text-align:center}
@@ -255,11 +232,7 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 @media (max-width:1100px){.menu a{padding:8px 10px}}
 @media (max-width:980px){
   .hero-inner{grid-template-columns:1fr;margin-top:40px}
-  .orbit-wrap{width:min(340px,86vw);order:-1;margin-top:10px}
-  .tile{width:52px;height:52px;margin:-26px;transform:rotate(var(--a)) translate(clamp(110px,34vw,150px)) rotate(calc(-1 * var(--a)))}
-  .tile svg{width:24px;height:24px}
-  .core{width:70px;height:70px;margin:-35px}
-  .about,.lab,.sky{grid-template-columns:1fr}
+          .about,.lab,.sky{grid-template-columns:1fr}
   .skills{grid-template-columns:1fr 1fr}
   .sky-panel{border-left:0;border-top:1px solid var(--line)}
   .demo-grid,.sem-grid{grid-template-columns:1fr}
@@ -290,8 +263,7 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important}
-  .bus .signal{stroke-dasharray:none;opacity:.35}
-}
+  }
 
 .tk-grid{list-style:none;padding:0;margin:6px 0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
 .tk-card{display:flex;flex-direction:column;gap:6px;height:100%;padding:12px;border-radius:12px;background:rgba(255,122,26,.06);border:1px solid rgba(255,197,49,.18);color:inherit;text-decoration:none;transition:transform .2s,border-color .2s}
@@ -314,3 +286,44 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 .dpad button:active{background:linear-gradient(135deg,#8B4513,#FF7A1A,#FFC531)}
 .dpad [data-d=up]{grid-column:2;grid-row:1}.dpad [data-d=left]{grid-column:1;grid-row:2}.dpad [data-d=down]{grid-column:2;grid-row:2}.dpad [data-d=right]{grid-column:3;grid-row:2}
 @media (hover:hover) and (pointer:fine){.dpad{display:none}}
+
+/* ---------- v4: acabamento 3D ---------- */
+.divider{position:relative;height:1px;max-width:1100px;margin:28px auto;background:linear-gradient(90deg,transparent,rgba(255,197,49,.28),transparent);overflow:visible}
+.divider span{position:absolute;top:-1px;left:0;width:140px;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);filter:blur(.5px) drop-shadow(0 0 6px var(--orange));animation:sweep 6s cubic-bezier(.6,0,.4,1) infinite}
+@keyframes sweep{0%{left:-10%;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}
+.universe{background:#000;border-color:rgba(255,220,170,.14);box-shadow:0 40px 120px -40px rgba(0,0,0,.9),inset 0 0 0 1px rgba(255,255,255,.03)}
+.uni-loading{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;color:var(--muted);font:500 13px var(--f-mono);letter-spacing:.1em;background:#000;transition:opacity .8s;z-index:3;pointer-events:none}
+.uni-loading span{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,197,49,.2);border-top-color:var(--amber);animation:spin 1s linear infinite}
+.uni-loading.done{opacity:0}
+.uni-card{background:rgba(8,7,6,.72);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(255,220,170,.22);box-shadow:0 30px 80px -30px rgba(0,0,0,.9)}
+.uni-card h3{font:300 26px/1.1 "Montserrat",var(--f-title);letter-spacing:.06em;color:var(--text)}
+.uni-card .fact{color:var(--gold);font-size:14px}
+.uni-card b{color:var(--text);font-weight:600}
+.planet-list i{box-shadow:0 0 10px var(--c)}
+/* cartões com profundidade: inclinam com o cursor */
+.tilt{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .3s;will-change:transform}
+.tilt:hover{box-shadow:0 30px 70px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,197,49,.25)}
+.glass{box-shadow:0 20px 60px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,240,220,.06)}
+.sec-head h2{font-family:"Montserrat",var(--f-title);font-weight:300;letter-spacing:.04em}
+@media (prefers-reduced-motion:reduce){.divider span{animation:none;opacity:0}.tilt{transition:none}}
+@media (max-width:900px){.hero-shade{background:linear-gradient(to top,var(--bg) 0%,rgba(5,3,2,.85) 45%,rgba(5,3,2,.2) 75%,transparent 100%)}.hero-inner{margin-top:42vh}}
+/* ---------- fliperama ---------- */
+.arcade{max-width:1100px;margin:0 auto;padding:clamp(14px,3vw,26px);display:flex;flex-direction:column;gap:14px}
+.ar-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:5px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid var(--glass-b);align-self:flex-start;max-width:100%;overflow-x:auto}
+.ar-tabs button{font:400 14px "Montserrat",var(--f-body);letter-spacing:.03em;color:var(--muted);background:none;border:0;padding:9px 16px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:.25s}
+.ar-tabs button[aria-selected=true]{color:#170b00;background:linear-gradient(135deg,#FFC531,#FF7A1A);box-shadow:0 6px 20px -8px rgba(255,122,26,.8)}
+.ar-top .readout b{background:linear-gradient(90deg,#FFE08A,#FF7A1A);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:18px}
+.ar-stage{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,220,170,.14);background:#0b0806;box-shadow:inset 0 0 80px rgba(0,0,0,.6);touch-action:none}
+#ar-canvas{display:block;width:100%;outline:none}
+.ar-overlay{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:16px;text-align:center;padding:20px;background:rgba(8,6,4,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:opacity .3s}
+.ar-overlay p{margin:0;max-width:44ch;font:300 clamp(15px,1.6vw,19px)/1.5 "Montserrat",var(--f-body);color:var(--text)}
+.ar-stage.playing .ar-overlay{opacity:0;pointer-events:none}
+#ar-dpad{display:grid;grid-template-columns:repeat(3,62px);grid-template-rows:repeat(2,52px);gap:8px;justify-content:center}
+#ar-dpad[hidden]{display:none}
+#ar-dpad button{font-size:18px;border-radius:14px;border:1px solid var(--glass-b);background:rgba(255,170,80,.08);color:var(--text);cursor:pointer;backdrop-filter:blur(8px)}
+#ar-dpad button:active{background:linear-gradient(135deg,#FFC531,#FF7A1A);color:#170b00}
+#ar-dpad .u{grid-column:2;grid-row:1}#ar-dpad .l{grid-column:1;grid-row:2}#ar-dpad .d{grid-column:2;grid-row:2}#ar-dpad .r{grid-column:3;grid-row:2}
+@media (hover:hover) and (pointer:fine){#ar-dpad{display:none!important}}
+.signature{min-height:1.6em;font:300 clamp(13px,1.4vw,16px) "Montserrat",var(--f-mono);letter-spacing:.32em}
+.caret{display:inline-block;width:2px;height:1.1em;margin-left:6px;vertical-align:-.15em;background:var(--amber);box-shadow:0 0 8px var(--orange);animation:blink 1s steps(1) infinite}
+.footer .credit{font-size:12px;color:var(--dim)}

@@ -48,163 +48,29 @@ const secObs = new IntersectionObserver(entries => {
 }, { rootMargin: '-45% 0px -50% 0px' });
 sections.forEach(s => secObs.observe(s));
 
-// barramentos entre seções: esquentam quando o cursor se aproxima
-const buses = $$('.bus');
-let busRaf = 0, lastPointer = null;
-addEventListener('pointermove', e => {
-  lastPointer = e;
-  if (busRaf) return;
-  busRaf = requestAnimationFrame(() => {
-    busRaf = 0;
-    for (const b of buses) {
-      const r = b.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > innerHeight + 200) continue;
-      const dy = Math.abs(lastPointer.clientY - (r.top + r.height / 2));
-      const heat = Math.max(0, 1 - dy / 220);
-      b.style.setProperty('--heat', heat.toFixed(2));
-      b.classList.toggle('fast', heat > .55);
-    }
-  });
-}, { passive: true });
-
-/* ---------------- topo: estrelas + circuitos ---------------- */
-(function hero() {
-  const cv = $('#hero-canvas'), ctx = cv.getContext('2d');
-  const hero = $('#inicio');
-  let w, h, dpr, stars = [], traces = [], mouse = { x: -999, y: -999, tx: -999, ty: -999 }, running = true, last = performance.now();
-
-  function build() {
-    dpr = Math.min(devicePixelRatio || 1, 1.5);
-    w = hero.clientWidth; h = hero.clientHeight;
-    cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.min(420, Math.round(w * h / 4200));
-    stars = Array.from({ length: n }, () => ({
-      x: Math.random() * w, y: Math.random() * h, z: .2 + Math.random() * .8,
-      r: Math.random() < .08 ? 1.6 : .5 + Math.random() * .9, p: Math.random() * 6.28, s: .5 + Math.random() * 1.5,
-      warm: Math.random() < .35
-    }));
-    // trilhas de circuito no estilo placa: segmentos ortogonais com curvas de 45°
-    const g = 26; traces = [];
-    const count = Math.round(Math.min(34, w / 48));
-    for (let i = 0; i < count; i++) {
-      const fromLeft = i % 2 === 0;
-      let x = fromLeft ? -g : w + g;
-      let y = Math.round((fromLeft ? h * .8 + Math.random() * h * .18 : h * .22 + Math.random() * h * .74) / g) * g;
-      const pts = [[x, y]];
-      let dir = fromLeft ? 1 : -1;
-      const segs = 4 + Math.floor(Math.random() * 6);
-      for (let k = 0; k < segs; k++) {
-        const len = g * (2 + Math.floor(Math.random() * 6));
-        x += dir * len; pts.push([x, y]);
-        if (Math.random() < .7) { const dy = (Math.random() < .5 ? -1 : 1) * g * (1 + Math.floor(Math.random() * 2)); x += dir * Math.abs(dy); y += dy; pts.push([x, y]); }
-      }
-      const lens = [0];
-      for (let k = 1; k < pts.length; k++) lens.push(lens[k - 1] + Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]));
-      traces.push({ pts, lens, total: lens[lens.length - 1], heat: 0, pulses: [Math.random() * lens[lens.length - 1]], next: Math.random() * 3 });
-    }
-  }
-  function at(t, s) {
-    let k = 1; while (k < t.lens.length - 1 && t.lens[k] < s) k++;
-    const a = t.pts[k - 1], b = t.pts[k], seg = t.lens[k] - t.lens[k - 1] || 1, f = Math.min(1, Math.max(0, (s - t.lens[k - 1]) / seg));
-    return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
-  }
-  function draw(now) {
-    const dt = Math.min(.05, (now - last) / 1000); last = now;
-    mouse.x += (mouse.tx - mouse.x) * .08; mouse.y += (mouse.ty - mouse.y) * .08;
-    ctx.clearRect(0, 0, w, h);
-    const ox = mouse.tx > -900 ? (mouse.x - w / 2) : 0, oy = mouse.ty > -900 ? (mouse.y - h / 2) : 0;
-    // estrelas com paralaxe sutil
-    for (const s of stars) {
-      const tw = reduced ? .8 : .55 + .45 * Math.sin(now / 1000 * s.s + s.p);
-      const x = s.x - ox * s.z * .025, y = s.y - oy * s.z * .025;
-      ctx.globalAlpha = tw * s.z;
-      ctx.fillStyle = s.warm ? C.gold : C.text;
-      ctx.beginPath(); ctx.arc(x, y, s.r, 0, 6.283); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    // brilho do cursor
-    if (mouse.tx > -900) {
-      const gr = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
-      gr.addColorStop(0, 'rgba(255,122,26,.10)'); gr.addColorStop(1, 'rgba(255,122,26,0)');
-      ctx.fillStyle = gr; ctx.fillRect(mouse.x - 220, mouse.y - 220, 440, 440);
-    }
-    // trilhas
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    for (const t of traces) {
-      let d = 1e9;
-      for (let k = 0; k < t.pts.length; k++) d = Math.min(d, Math.hypot(t.pts[k][0] - mouse.x, t.pts[k][1] - mouse.y));
-      const target = Math.max(0, 1 - d / 200);
-      t.heat += (target - t.heat) * .1;
-      ctx.strokeStyle = `rgba(255,197,49,${.07 + t.heat * .32})`; ctx.lineWidth = 1.4;
-      ctx.beginPath(); t.pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
-      // pads (nós) pulsando
-      const end = t.pts[t.pts.length - 1];
-      const pulse = reduced ? .7 : .5 + .5 * Math.sin(now / 600 + t.total);
-      ctx.fillStyle = `rgba(255,122,26,${.25 + .5 * pulse * (.4 + t.heat)})`;
-      ctx.beginPath(); ctx.arc(end[0], end[1], 3.2, 0, 6.283); ctx.fill();
-      ctx.strokeStyle = `rgba(255,224,138,${.25 + t.heat * .5})`; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(end[0], end[1], 6, 0, 6.283); ctx.stroke();
-      if (reduced) continue;
-      // pulsos de sinal
-      t.next -= dt * (1 + t.heat * 4);
-      if (t.next <= 0) { t.pulses.push(0); t.next = 2.5 + Math.random() * 3; }
-      const speed = 110 + t.heat * 160;
-      t.pulses = t.pulses.filter(s => s < t.total);
-      for (let i = 0; i < t.pulses.length; i++) {
-        t.pulses[i] += speed * dt;
-        const s = t.pulses[i];
-        const [hx, hy] = at(t, s), [tx, ty] = at(t, Math.max(0, s - 34));
-        const lg = ctx.createLinearGradient(tx, ty, hx, hy);
-        lg.addColorStop(0, 'rgba(255,122,26,0)'); lg.addColorStop(1, 'rgba(255,224,138,.95)');
-        ctx.strokeStyle = lg; ctx.lineWidth = 2.4;
-        ctx.beginPath(); ctx.moveTo(tx, ty);
-        // segue a trilha entre a cauda e a cabeça
-        for (let k = 1; k < t.pts.length; k++) if (t.lens[k] > s - 34 && t.lens[k] < s) ctx.lineTo(t.pts[k][0], t.pts[k][1]);
-        ctx.lineTo(hx, hy); ctx.stroke();
-        ctx.fillStyle = C.gold; ctx.shadowColor = C.orange; ctx.shadowBlur = 12;
-        ctx.beginPath(); ctx.arc(hx, hy, 2.4, 0, 6.283); ctx.fill(); ctx.shadowBlur = 0;
-      }
-    }
-    // véu escuro atrás do bloco de texto (leitura em primeiro lugar)
-    const tb = textBox();
-    if (tb) {
-      const cx = tb.x + tb.w / 2, cy = tb.y + tb.h / 2, rad = Math.max(tb.w, tb.h) * .75;
-      const vg = ctx.createRadialGradient(cx, cy, rad * .2, cx, cy, rad);
-      vg.addColorStop(0, 'rgba(10,8,6,.72)'); vg.addColorStop(1, 'rgba(10,8,6,0)');
-      ctx.fillStyle = vg; ctx.fillRect(cx - rad, cy - rad, rad * 2, rad * 2);
-    }
-    if (running && !reduced) requestAnimationFrame(draw);
-  }
-  let tbCache = null;
-  function textBox() {
-    if (tbCache) return tbCache;
-    const el = $('.hero-text'), hr = hero.getBoundingClientRect(), r = el.getBoundingClientRect();
-    return tbCache = { x: r.left - hr.left, y: r.top - hr.top, w: r.width, h: r.height };
-  }
-  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mouse.tx = e.clientX - r.left; mouse.ty = e.clientY - r.top; if (mouse.x < -900) { mouse.x = mouse.tx; mouse.y = mouse.ty; } if (reduced) draw(performance.now()); }, { passive: true });
-  hero.addEventListener('pointerleave', () => { mouse.tx = mouse.ty = -999; mouse.x = mouse.y = -999; });
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { tbCache = null; build(); if (reduced || !running) draw(performance.now()); }, 150); });
-  new IntersectionObserver(([en]) => {
-    const was = running; running = en.isIntersecting && !document.hidden;
-    if (running && !was && !reduced) { last = performance.now(); requestAnimationFrame(draw); }
-  }).observe(hero);
-  document.addEventListener('visibilitychange', () => { const was = running; running = !document.hidden; if (running && !was && !reduced) { last = performance.now(); requestAnimationFrame(draw); } });
-  build(); requestAnimationFrame(draw);
+/* ---------------- topo: buraco negro em tempo real ---------------- */
+(async function hero() {
+  const cv = $('#hero-gl');
+  try { const { initHero } = await import('./hero3d.js'); if (!initHero(cv, { reduced })) cv.classList.add('off'); }
+  catch (err) { console.warn('hero 3D indisponível:', err); cv.classList.add('off'); }
 })();
 
 /* ---------------- universo 3D ---------------- */
 const PLANETS = [
-  { name: 'Engenharia Elétrica', color: '#FF7A1A', text: 'Circuitos RC, corrente alternada, fator de potência e motor de indução trifásico — tudo medido, simulado e documentado em relatórios de laboratório.', link: '#exp-rc', label: 'Ver experimento' },
-  { name: 'Programação', color: '#FFC531', text: 'Python e Jupyter para métodos numéricos: interpolação polinomial e erro percentual, com Git e GitHub para versionar.', link: '#exp-interp', label: 'Ver experimento' },
-  { name: 'Robótica & Arduino', color: '#FFE08A', text: 'No projeto de extensão em robótica, preparei e ministrei uma aula prática de semáforo com Arduino e protoboard.', link: '#exp-semaforo', label: 'Ver experimento' },
-  { name: 'Documentação em LaTeX', color: '#FF9F4A', text: 'Relatórios técnicos com circuitikz, pgfplots, TikZ e tcolorbox, escritos e compilados no Overleaf.', link: '#exp-rc', label: 'Ver relatórios' },
-  { name: 'Física & Astronomia', color: '#C9682A', text: 'A curiosidade de fundo: física de partículas, astrofísica e astronomia — o motivo de este portfólio ser um universo.', link: '#sobre', label: 'Sobre mim' }
+  { name: 'Mercúrio', fact: 'O mais rápido: dá a volta no Sol em 88 dias.', area: 'Programação', text: 'Python e Jupyter para métodos numéricos, com Git e GitHub para versionar.', link: '#exp-interp', label: 'Ver experimento' },
+  { name: 'Vênus', fact: 'O mais quente, coberto por nuvens densas de ácido sulfúrico.', area: 'Documentação em LaTeX', text: 'Relatórios técnicos com circuitikz, pgfplots e TikZ, escritos no Overleaf.', link: '#exp-rc', label: 'Ver relatórios' },
+  { name: 'Terra', fact: 'Nossa casa, o único planeta conhecido com vida.', area: 'Engenharia Elétrica', text: 'Circuitos RC, corrente alternada, fator de potência e motor de indução, medidos e simulados.', link: '#exp-rc', label: 'Ver experimento' },
+  { name: 'Marte', fact: 'O planeta vermelho, explorado por robôs desde 1976.', area: 'Robótica & Arduino', text: 'No projeto de extensão em robótica, ministrei uma aula prática de semáforo com Arduino.', link: '#exp-semaforo', label: 'Ver experimento' },
+  { name: 'Júpiter', fact: 'O gigante: caberiam mais de 1.300 Terras dentro dele.', area: 'Física & Astronomia', text: 'Física de partículas, astrofísica e astronomia: a curiosidade que move este portfólio.', link: '#sobre', label: 'Sobre mim' },
+  { name: 'Saturno', fact: 'Seus anéis são feitos de gelo e rocha e têm até 280 mil km.', area: 'Circuitos no Tinkercad', text: 'Projetos simulados no Tinkercad Circuits, do esquema ao protótipo virtual.', link: '#exp-tinkercad', label: 'Ver circuitos' },
+  { name: 'Urano', fact: 'Gira deitado, com o eixo inclinado em 98 graus.', area: 'Dados e análise', text: 'Pacote Office e Power BI para transformar números em decisões.', link: '#conhecimentos', label: 'Ver conhecimentos' },
+  { name: 'Netuno', fact: 'Tem os ventos mais fortes do Sistema Solar, acima de 2.000 km/h.', area: 'Próximos passos', text: 'Aberta a estágios e trabalhos remotos em tecnologia e engenharia.', link: '#contato', label: 'Fale comigo' }
 ];
 const uniCard = $('#uni-card');
 function showPlanet(i) {
   const p = PLANETS[i];
   if (!p) { uniCard.hidden = true; $$('.planet-list button').forEach(b => b.classList.remove('on')); return; }
-  uniCard.innerHTML = `<p class="kicker">planeta ${i + 1} de ${PLANETS.length}</p><h3>${p.name}</h3><p>${p.text}</p><a href="${p.link}">${p.label} →</a>`;
+  uniCard.innerHTML = `<p class="kicker">planeta ${i + 1} de ${PLANETS.length}</p><h3>${p.name}</h3><p class="fact">${p.fact}</p><p><b>${p.area}.</b> ${p.text}</p><a href="${p.link}">${p.label} →</a>`;
   uniCard.hidden = false;
   $$('.planet-list button').forEach((b, k) => b.classList.toggle('on', k === i));
 }
@@ -223,7 +89,7 @@ const uniObs = new IntersectionObserver(async ([en]) => {
   if (!hasWebGL()) return useFallback();
   try {
     const mod = await import('./universe.js');
-    universe = mod.initUniverse($('#uni-stage'), PLANETS, { reduced, onSelect: showPlanet });
+    universe = mod.initUniverse($('#uni-stage'), PLANETS, { reduced, onSelect: showPlanet, onReady: () => $('#uni-loading').classList.add('done') });
   } catch (err) { console.warn('3D indisponível, usando versão leve:', err); useFallback(); }
 }, { rootMargin: '300px' });
 uniObs.observe($('#universo'));
@@ -233,7 +99,7 @@ $$('[data-uni]').forEach(b => b.addEventListener('click', () => {
   if (a === 'pause') {
     const on = b.getAttribute('aria-pressed') !== 'true';
     b.setAttribute('aria-pressed', on); b.textContent = on ? 'Retomar órbitas' : 'Pausar órbitas';
-    universe ? universe.setPaused(on) : $$('.fb-orbit').forEach(o => o.style.animationPlayState = on ? 'paused' : 'running');
+    universe && universe.setPaused(on);
     return;
   }
   if (!universe) return;
@@ -442,4 +308,32 @@ $$('[data-filter]').forEach(b => b.addEventListener('click', () => {
   } catch {
     $('#stats').hidden = true;
   }
+})();
+
+/* ---------------- profundidade: cartões inclinam com o cursor ---------------- */
+if (!reduced && matchMedia('(hover:hover)').matches) {
+  $$('.exp, .con-card, .glass:not(.universe):not(.sky)').forEach(c => {
+    c.classList.add('tilt');
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      c.style.transform = `perspective(1100px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) translateZ(0)`;
+    });
+    c.addEventListener('pointerleave', () => { c.style.transform = ''; });
+  });
+}
+
+/* ---------------- legenda que escreve e apaga ---------------- */
+(function typer() {
+  const el = $('#typed'); if (!el) return;
+  const words = ['ENGENHARIA ELÉTRICA', 'PROGRAMAÇÃO', 'ROBÓTICA', 'TECNOLOGIA', 'FÍSICA & ASTRONOMIA'];
+  if (reduced) { el.textContent = words.join(' · '); return; }
+  let w = 0, i = words[0].length, del = true;
+  setTimeout(function tick() {
+    const word = words[w];
+    i += del ? -1 : 1; el.textContent = word.slice(0, i);
+    let wait = del ? 38 : 85;
+    if (!del && i === word.length) { del = true; wait = 1800; }
+    else if (del && i === 0) { del = false; w = (w + 1) % words.length; wait = 350; }
+    setTimeout(tick, wait);
+  }, 2200);
 })();
