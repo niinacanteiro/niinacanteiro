@@ -292,3 +292,10 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
   *,*::before,*::after{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important}
   .bus .signal{stroke-dasharray:none;opacity:.35}
 }
+
+.tk-grid{list-style:none;padding:0;margin:6px 0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.tk-card{display:flex;flex-direction:column;gap:6px;height:100%;padding:12px;border-radius:12px;background:rgba(255,122,26,.06);border:1px solid rgba(255,197,49,.18);color:inherit;text-decoration:none;transition:transform .2s,border-color .2s}
+.tk-card:hover,.tk-card:focus-visible{transform:translateY(-3px);border-color:var(--gold)}
+.tk-card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:#0d0a07}
+.tk-card b{font-size:14px;line-height:1.3}
+.tk-card span{font-size:12.5px;opacity:.75;line-height:1.4}
