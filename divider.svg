@@ -1,25 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 24" width="100%">
-<defs><filter id="g" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 34" width="100%">
+<defs><filter id="g" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <style>
-.b{fill:none;stroke:#2A1E3D;stroke-width:2}
+.b{fill:none;stroke:#3D2A14;stroke-width:2}
 .p{fill:none;stroke-linecap:round;filter:url(#g)}
-.a,.at{stroke-dasharray:70 1200;animation:ir 4s linear infinite,ca 4s linear infinite}
-.at{stroke-dasharray:150 1200;stroke-width:2;opacity:.35;animation-delay:-.12s,-.12s}
-.a{stroke-width:3}
-.v,.vt{stroke-dasharray:70 1200;animation:ir 5s linear infinite,cv 5s linear infinite}
-.vt{stroke-dasharray:150 1200;stroke-width:2;opacity:.35;animation-delay:-.12s,-.12s}
-.v{stroke-width:3}
-@keyframes ir{from{stroke-dashoffset:1080}to{stroke-dashoffset:-80}}
-
-@keyframes ca{0%{stroke:#A855F7}35%{stroke:#EC4899}70%{stroke:#FF7A1A}100%{stroke:#FFC531}}
-@keyframes cv{0%{stroke:#22D3EE}35%{stroke:#3B82F6}70%{stroke:#8B5CF6}100%{stroke:#E879F9}}
-.d{animation:pd 3s linear infinite;filter:url(#g)}
-@keyframes pd{0%{fill:#A855F7;opacity:.4}50%{fill:#22D3EE;opacity:1}100%{fill:#A855F7;opacity:.4}}
+.a{stroke-width:3;stroke-dasharray:70 1200;animation:r 4s linear infinite,ca 4s linear infinite}
+.at{stroke-width:2;opacity:.35;stroke-dasharray:150 1200;animation:r 4s linear infinite,ca 4s linear infinite;animation-delay:-.12s,-.12s}
+.v{stroke-width:3;stroke-dasharray:70 1200;animation:r 5s linear infinite,cv 5s linear infinite}
+.vt{stroke-width:2;opacity:.35;stroke-dasharray:150 1200;animation:r 5s linear infinite,cv 5s linear infinite;animation-delay:-.12s,-.12s}
+@keyframes r{from{stroke-dashoffset:1080}to{stroke-dashoffset:-80}}
+@keyframes ca{0%{stroke:#8B4513}35%{stroke:#C2410C}70%{stroke:#FF7A1A}100%{stroke:#FFC531}}
+@keyframes cv{0%{stroke:#FFB347}35%{stroke:#FF7A1A}70%{stroke:#DC2626}100%{stroke:#7F1D1D}}
+.d{animation:pd 3s ease-in-out infinite;filter:url(#g)}
+@keyframes pd{0%{fill:#8B4513;opacity:.4}50%{fill:#FF7A1A;opacity:1}100%{fill:#B91C1C;opacity:.4}}
 </style>
-<path class="b" d="M0,12 H380 L392,4 H608 L620,12 H1000"/>
-<path class="p at" d="M0,12 H380 L392,4 H608 L620,12 H1000"/>
-<path class="p a" d="M0,12 H380 L392,4 H608 L620,12 H1000"/>
-<path class="p vt" d="M1000,12 H620 L608,4 H392 L380,12 H0"/>
-<path class="p v" d="M1000,12 H620 L608,4 H392 L380,12 H0"/>
-<circle class="d" cx="392" cy="4" r="3"/><circle class="d" cx="608" cy="4" r="3" style="animation-delay:-1.5s"/>
+<path class="b" d="M0,10 H380 L392,4 H608 L620,10 H1000"/>
+<path class="p at" d="M0,10 H380 L392,4 H608 L620,10 H1000"/>
+<path class="p a" d="M0,10 H380 L392,4 H608 L620,10 H1000"/>
+<path class="b" d="M1000,24 H620 L608,30 H392 L380,24 H0"/>
+<path class="p vt" d="M1000,24 H620 L608,30 H392 L380,24 H0"/>
+<path class="p v" d="M1000,24 H620 L608,30 H392 L380,24 H0"/>
+<circle class="d" cx="392" cy="4" r="3"/><circle class="d" cx="608" cy="4" r="3" style="animation-delay:-1s"/>
+<circle class="d" cx="392" cy="30" r="3" style="animation-delay:-2s"/><circle class="d" cx="608" cy="30" r="3" style="animation-delay:-1.5s"/>
 </svg>
