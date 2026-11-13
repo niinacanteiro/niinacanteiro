@@ -30,7 +30,7 @@ export function initHero(canvas, { reduced = false } = {}) {
     float f1 = fbm(q*2.2 + vec2(t*.03, -t*.02));
     float f2 = fbm(q*4.5 - vec2(t*.05, t*.03) + f1*1.6);
     float arms = pow(.5+.5*sin(atan(q.y,q.x)*2. - length(q)*5. + t*.12 + f2*2.5), 3.);
-    vec3 c = mix(vec3(.16,.05,.02), vec3(.62,.20,.05), f2) * f1 * 1.1;
+    vec3 c = mix(vec3(.22,.06,.02), mix(vec3(.85,.30,.04), vec3(.80,.10,.05), .5+.5*sin(t*.3)), f2) * f1 * 1.5;
     c += vec3(1.,.48,.10)*arms*f2*.35 + vec3(.73,.11,.11)*pow(f1,3.)*.4;
     return c*.55;
   }
@@ -66,14 +66,15 @@ export function initHero(canvas, { reduced = false } = {}) {
           float bands = fbm(vec2(sw*3.5, hr*1.6)) * .8 + fbm(vec2(sw*9., hr*5.))*.5 + pow(abs(sin(sw*6. + fbm(vec2(hr*2.,a2))*3.)), 8.)*.45;
           float x = (hr-2.6)/(11.-2.6);
           float temp = pow(1.-x, 1.6);
-          vec3 hot = vec3(1., .95, .82), mid = vec3(1., .48, .10), cool = vec3(.45, .11, .07);
+          float sh = .5 + .5*sin(t*.35 + ang*.0); float sh2 = .5 + .5*sin(t*.22 + 2.1);
+          vec3 hot = vec3(1., .93, .70), mid = mix(vec3(1., .52, .06), vec3(1., .16, .04), sh), cool = mix(vec3(.62, .26, .05), vec3(.70, .06, .04), sh2);
           vec3 dc = mix(cool, mid, smoothstep(0.,.55,temp)); dc = mix(dc, hot, smoothstep(.55,1.,temp));
           // Doppler: lado que vem em nossa direção fica mais claro
           vec3 vel = normalize(vec3(-hit.z, 0., hit.x));
           float dop = 1. + .55*dot(vel, -rd);
           float edge = smoothstep(0.,.06,x) * smoothstep(1.,.7,x);
           float dens = edge * (.35 + bands) ;
-          vec3 e = dc * dens * dop*dop * (1.6 + 2.2*temp);
+          vec3 e = dc * dens * dop*dop * (2.6 + 3.4*temp);
           col += e * alpha;
           alpha *= 1. - clamp(dens*.85, 0., .92);
           if(alpha < .02) break;
@@ -87,7 +88,7 @@ export function initHero(canvas, { reduced = false } = {}) {
     float glow = exp(-pow(length(uv)*2.2,2.))*.0;
     col += vec3(1.,.6,.2)*glow;
     col = col / (1. + col);                        // tonemap
-    col = pow(col, vec3(.85));
+    col = pow(col, vec3(.78)); col *= 1.12;
     // vinheta
     vec2 q = gl_FragCoord.xy/res; col *= .55 + .45*pow(16.*q.x*q.y*(1.-q.x)*(1.-q.y), .18);
     gl_FragColor = vec4(col, 1.);

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Relatividade geral em 3D · Nicoly Canteiro</title>
+<meta name="theme-color" content="#050302">
+<link rel="stylesheet" href="fonts.css">
+<style>
+html,body{margin:0;height:100%;background:#050302;color:#FFC531;overflow:hidden;font-family:"Space Grotesk",system-ui,sans-serif}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab}
+#c:active{cursor:grabbing}
+.top{position:fixed;left:0;right:0;top:18px;text-align:center;pointer-events:none}
+.eq{font:italic 400 clamp(22px,3.4vw,40px) "Times New Roman",serif;color:#FFF1D6;text-shadow:0 0 18px rgba(255,160,40,.45)}
+.eq sub{font-size:.55em}.eq sup{font-size:.55em}
+.sub{margin-top:6px;font:600 clamp(10px,1.2vw,13px) "JetBrains Mono",monospace;letter-spacing:.35em;color:#FFC531}
+.hint{position:fixed;left:0;right:0;bottom:16px;text-align:center;font:500 12px "JetBrains Mono",monospace;color:rgba(255,210,122,.7);letter-spacing:.12em}
+.back{position:fixed;left:16px;top:16px;font:600 13px "Space Grotesk",sans-serif;color:#FFC531;text-decoration:none;border:1px solid rgba(255,197,49,.35);padding:7px 12px;border-radius:999px;background:rgba(10,8,6,.6)}
+.sig{position:fixed;right:18px;bottom:16px;font:500 11px "JetBrains Mono",monospace;letter-spacing:.3em;color:rgba(255,197,49,.5)}
+</style>
+<script type="importmap">{ "imports": { "three": "./three.module.min.js", "three/addons/controls/OrbitControls.js": "./OrbitControls.js" } }</script>
+</head>
+<body>
+<canvas id="c" aria-label="Relatividade geral em 3D: a estrela curva a malha do espaço-tempo, o planeta orbita e a luz se desvia. Arraste para girar."></canvas>
+<a class="back" href="./">← Portfólio</a>
+<div class="top"><div class="eq">G<sub>μν</sub> + Λg<sub>μν</sub> = 8πG/c<sup>4</sup> T<sub>μν</sub></div><div class="sub">RELATIVIDADE GERAL · A MASSA CURVA O ESPAÇO-TEMPO</div></div>
+<div class="hint">arraste para girar · role ou faça pinça para aproximar</div>
+<div class="sig">EINSTEIN, 1915</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const cv = document.getElementById('c');
+const R = new THREE.WebGLRenderer({ canvas: cv, antialias: true });
+R.setPixelRatio(Math.min(2, devicePixelRatio));
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050302);
+const cam = new THREE.PerspectiveCamera(45, 1, 0.1, 500);
+cam.position.set(0, 9, 22);
+const ctl = new OrbitControls(cam, cv);
+ctl.enableDamping = true; ctl.target.set(0, -1.5, 0); ctl.minDistance = 8; ctl.maxDistance = 45;
+ctl.autoRotate = true; ctl.autoRotateSpeed = 0.5;
+
+// poço gravitacional
+const depth = (x, z) => -7 / Math.sqrt(x * x + z * z + 1.6) + 0.55;
+const N = 30, S = 14, step = (2 * S) / N, sub = 4;
+const pos = [], col = [];
+const cNear = new THREE.Color(0xFFD27A), cMid = new THREE.Color(0xFF7A1A), cFar = new THREE.Color(0x8B4513);
+function colorAt(x, z) {
+  const r = Math.min(1, Math.hypot(x, z) / S);
+  const c = r < .5 ? cNear.clone().lerp(cMid, r / .5) : cMid.clone().lerp(cFar, (r - .5) / .5);
+  return c;
+}
+function seg(a, b) { pos.push(...a, ...b); const c1 = colorAt(a[0], a[2]), c2 = colorAt(b[0], b[2]); col.push(c1.r, c1.g, c1.b, c2.r, c2.g, c2.b); }
+for (let i = 0; i <= N; i++) {
+  const u = -S + i * step;
+  for (let j = 0; j < N * sub; j++) {
+    const v0 = -S + j * step / sub, v1 = v0 + step / sub;
+    seg([u, depth(u, v0), v0], [u, depth(u, v1), v1]);
+    seg([v0, depth(v0, u), u], [v1, depth(v1, u), u]);
+  }
+}
+const gg = new THREE.BufferGeometry();
+gg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+gg.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+const gridMat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: .85 });
+scene.add(new THREE.LineSegments(gg, gridMat));
+
+// estrela com brilho
+const starY = depth(0, 0) + 0.9;
+const sun = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 48), new THREE.MeshBasicMaterial({ color: 0xFFF1D6 }));
+sun.position.set(0, starY, 0); scene.add(sun);
+function glowTex() {
+  const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d');
+  const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  r.addColorStop(0, 'rgba(255,241,214,1)'); r.addColorStop(.18, 'rgba(255,197,49,.9)');
+  r.addColorStop(.45, 'rgba(255,122,26,.35)'); r.addColorStop(1, 'rgba(139,69,19,0)');
+  g.fillStyle = r; g.fillRect(0, 0, 256, 256); return new THREE.CanvasTexture(c);
+}
+const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex(), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+glow.scale.set(9, 9, 1); glow.position.copy(sun.position); scene.add(glow);
+
+// órbita e planeta
+const orbR = 5.2;
+const orbPts = []; for (let k = 0; k <= 160; k++) { const a = k / 160 * Math.PI * 2, x = Math.cos(a) * orbR, z = Math.sin(a) * orbR; orbPts.push(new THREE.Vector3(x, depth(x, z) + .35, z)); }
+const orb = new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbPts), new THREE.LineDashedMaterial({ color: 0xFFD27A, dashSize: .25, gapSize: .25, transparent: true, opacity: .55 }));
+orb.computeLineDistances(); scene.add(orb);
+const planet = new THREE.Mesh(new THREE.SphereGeometry(.42, 32, 32), new THREE.MeshStandardMaterial({ color: 0x3D7CC9, emissive: 0x0b2350, roughness: .5 }));
+scene.add(planet);
+const light = new THREE.PointLight(0xFFD9A0, 60, 0, 1.6); light.position.copy(sun.position); scene.add(light);
+scene.add(new THREE.AmbientLight(0x332211, .6));
+
+// raio de luz desviado
+const rayPts = [];
+for (let k = 0; k <= 200; k++) { const x = -S - 2 + k / 200 * (2 * S + 4), b = 3.2, z = b - 2.6 / Math.sqrt(1 + (x / 3.2) ** 2) * 1.0; rayPts.push(new THREE.Vector3(x, 1.6 - 1.4 / Math.sqrt(1 + (x / 4) ** 2), z)); }
+const ray = new THREE.Line(new THREE.BufferGeometry().setFromPoints(rayPts), new THREE.LineDashedMaterial({ color: 0xFFF1D6, dashSize: .55, gapSize: .4 }));
+ray.computeLineDistances(); scene.add(ray);
+const photon = new THREE.Mesh(new THREE.SphereGeometry(.13, 16, 16), new THREE.MeshBasicMaterial({ color: 0xFFFFFF }));
+scene.add(photon);
+
+// estrelas
+const sp = []; for (let k = 0; k < 1800; k++) { const v = new THREE.Vector3().randomDirection().multiplyScalar(120 + Math.random() * 120); sp.push(v.x, v.y, v.z); }
+const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xFFE9C4, size: .9, sizeAttenuation: true, transparent: true, opacity: .8 })));
+
+function resize() { const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduced) ctl.autoRotate = false;
+const clock = new THREE.Clock();
+function tick() {
+  const t = clock.getElapsedTime();
+  const a = t * (reduced ? 0 : .45), x = Math.cos(a) * orbR, z = Math.sin(a) * orbR;
+  planet.position.set(x, depth(x, z) + .35, z); planet.rotation.y = t;
+  const s = 1 + Math.sin(t * 2.2) * .04; glow.scale.set(9 * s, 9 * s, 1);
+  gridMat.opacity = .78 + Math.sin(t * .8) * .08;
+  const k = Math.floor(((t * 30) % 200)); photon.position.copy(rayPts[k]);
+  ctl.update(); R.render(scene, cam); requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>

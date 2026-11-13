@@ -334,3 +334,17 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 
 .hero-art{display:flex;justify-content:center;align-items:center}.hero-art img{width:100%;max-width:620px;border-radius:22px;filter:drop-shadow(0 0 40px rgba(255,122,26,.25))}
 @media (max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-art img{max-width:520px}}
+
+#rcs{width:100%;height:auto;display:block;overflow:visible}
+.rcs-w path,.rcs-w line{fill:none;stroke:#FFC531;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.rcs-w .rcs-plate{stroke-width:4.5}
+.rcs-c{fill:#0a0806;stroke:#FFC531;stroke-width:3}.rcs-dot{fill:#FFC531}
+#rcs-charge{fill:#FF7A1A;opacity:0;transition:opacity .2s}
+#rcs-blade{transition:transform .7s cubic-bezier(.3,1.35,.5,1)}#rcs-blade line{stroke-width:4.2}
+.rcs-flow{fill:none;stroke:#FFF1C9;stroke-width:3.4;stroke-linecap:round;stroke-dasharray:2 22;opacity:0;animation:rcs-run 1s linear infinite}
+@keyframes rcs-run{to{stroke-dashoffset:-24}}
+.rcs-t text{fill:#FFC531;font:600 22px var(--f-body);font-style:italic}.rcs-t .rcs-big{font-size:30px}
+.rcs-t .rcs-mono{font:500 15px var(--f-mono);font-style:normal;fill:#FFD27A}
+@media (prefers-reduced-motion:reduce){.rcs-flow{animation:none}#rcs-blade{transition:none}}
+
+.hero-art img{border-radius:0;filter:drop-shadow(0 0 18px rgba(255,140,40,.35))}

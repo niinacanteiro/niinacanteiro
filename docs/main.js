@@ -51,7 +51,7 @@ sections.forEach(s => secObs.observe(s));
 /* ---------------- topo: buraco negro em tempo real ---------------- */
 (async function hero() {
   const cv = $('#hero-gl');
-  try { const { initHero } = await import('./hero3d.js'); if (!initHero(cv, { reduced })) cv.classList.add('off'); }
+  try { const { initHero } = await import('./hero3d.js?v=3'); if (!initHero(cv, { reduced })) cv.classList.add('off'); }
   catch (err) { console.warn('hero 3D indisponível:', err); cv.classList.add('off'); }
 })();
 
@@ -170,7 +170,28 @@ function plot(cv, { xmin, xmax, ymin, ymax, series, marks = [], xlabel, ylabel, 
 (function rc() {
   const cv = $('#rc-canvas'), e = $('#rc-e'), r = $('#rc-r'), c = $('#rc-c');
   let mode = 'carga';
+  const blade = $('#rcs-blade'), fc = $('#rcs-fc'), fd = $('#rcs-fd'), cap = $('#rcs-charge'), vcT = $('#rcs-vc'), stT = $('#rcs-st');
+  const L = { vc: 0, raf: 0, last: 0 };
+  function live(now) {
+    const E = +e.value, R = +r.value * (mode === 'descarga' ? 2 : 1), tau = R * (+c.value) * 1e-6;
+    const dt = Math.min(.05, (now - (L.last || now)) / 1000); L.last = now;
+    const k = 1 / 0.6; // 5τ na tela ≈ 3 s
+    const target = mode === 'carga' ? E : 0;
+    L.vc = target + (L.vc - target) * Math.exp(-dt * k);
+    const frac = Math.min(1, Math.abs(target - L.vc) / Math.max(E, .01));
+    if (vcT) vcT.textContent = 'v_C = ' + fmt(L.vc, 2) + ' V';
+    if (cap) cap.style.opacity = (Math.min(1, L.vc / Math.max(E, .01)) * .9).toFixed(3);
+    if (fc) fc.style.opacity = mode === 'carga' ? Math.min(1, frac * 4).toFixed(3) : 0;
+    if (fd) fd.style.opacity = mode === 'descarga' ? Math.min(1, frac * 4).toFixed(3) : 0;
+    L.raf = requestAnimationFrame(live);
+  }
+  function setSwitch() {
+    if (blade) blade.style.transform = mode === 'carga' ? 'rotate(0deg)' : 'rotate(-90deg)';
+    if (stT) stT.textContent = mode === 'carga' ? 'chave na posição 1 · carga pela fonte' : 'chave na posição 3 · descarga por R₁ + R₂';
+  }
   function render() {
+    setSwitch();
+    if (!L.raf) L.raf = requestAnimationFrame(live);
     const E = +e.value, R = +r.value * (mode === 'descarga' ? 2 : 1), Cf = +c.value * 1e-6, tau = R * Cf;
     $('#rc-e-o').textContent = fmt(E, E % 1 ? 1 : 0) + ' V';
     $('#rc-r-o').textContent = fmt(+r.value / 1000, 1) + ' kΩ';
