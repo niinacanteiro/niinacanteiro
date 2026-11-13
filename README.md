@@ -54,7 +54,9 @@ $$
 
 ## 🌌 Relatividade geral
 
-<p align="center"><img src="./relatividade.svg" width="100%" alt="Relatividade geral animada: a estrela curva a malha do espaço-tempo, o planeta orbita e a luz se desvia" /></p>
+<p align="center"><a href="https://niinacanteiro.github.io/niinacanteiro/relatividade.html"><img src="./relatividade.svg" width="100%" alt="Relatividade geral animada: a estrela curva a malha do espaço-tempo, o planeta orbita e a luz se desvia" /></a></p>
+
+<p align="center"><a href="https://niinacanteiro.github.io/niinacanteiro/relatividade.html"><b>🌀 Abrir em 3D e girar com o mouse</b></a></p>
 
 <img src="./divider.svg" width="100%" />
 
