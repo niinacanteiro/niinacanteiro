@@ -295,9 +295,67 @@ $$('[data-filter]').forEach(b => b.addEventListener('click', () => {
     b.addEventListener('click', () => select(s, b));
     map.appendChild(b);
   });
+  /* ---- galáxias e planetas desenhados em canvas ---- */
+  const COLORS = { ele: [255,197,49], prog: [255,122,26], rob: [230,60,40], doc: [255,179,71], sim: [255,150,60], fis: [255,214,160] };
+  const PCOL = [[196,98,45],[230,140,70],[150,70,40],[220,90,60],[240,180,110],[170,90,50]];
+  const cvs = document.createElement('canvas'); cvs.className = 'sky-canvas'; cvs.setAttribute('aria-hidden', 'true'); map.prepend(cvs);
+  svg.style.display = 'none';
+  const ctx = cvs.getContext('2d'); let CW = 0, CH = 0, DPR = Math.min(2, devicePixelRatio || 1), hotId = null;
+  const bg = Array.from({ length: 260 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.1 + .2, p: Math.random() * 6.3 }));
+  const gal = {};
+  STARS.filter(s => s.area).forEach((s, k) => {
+    const pts = []; const arms = 2 + (k % 2), N = 700;
+    for (let i = 0; i < N; i++) { const arm = i % arms, t = Math.random(); const r = Math.pow(t, .7);
+      pts.push({ r, a: arm * (Math.PI * 2 / arms) + r * 4.2 + (Math.random() - .5) * .55 * (1 - r * .4), z: Math.random() * .8 + .2, s: Math.random() * 1.2 + .3 }); }
+    gal[s.id] = { pts, tilt: .45 + (k % 3) * .12, rot: (k % 2 ? -1 : 1) * (.08 + k * .012), ph: k };
+  });
+  const planets = {}; STARS.filter(s => !s.area).forEach((s, k) => { planets[s.id] = { c: PCOL[k % PCOL.length], ring: k % 3 === 1, ph: k * 1.7 }; });
+  const flows = edges.map(([a, b], i) => ({ a, b, bend: ((i % 2) ? 1 : -1) * (.12 + (i % 3) * .05), off: Math.random() }));
+  function rs() { const r = map.getBoundingClientRect(); CW = r.width; CH = r.height; cvs.width = CW * DPR; cvs.height = CH * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  rs(); addEventListener('resize', rs);
+  const P = s => [s.x / 100 * CW, s.y / 100 * CH];
+  function curve(a, b, bend) { const [x1, y1] = P(a), [x2, y2] = P(b); const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1; return [x1, y1, mx - dy * bend, my + dx * bend, x2, y2]; }
+  function qpt(c, t) { const u = 1 - t; return [u * u * c[0] + 2 * u * t * c[2] + t * t * c[4], u * u * c[1] + 2 * u * t * c[3] + t * t * c[5]]; }
+  function draw(now) {
+    const t = now / 1000; ctx.clearRect(0, 0, CW, CH);
+    // nebulosa
+    ctx.globalCompositeOperation = 'lighter';
+    [[.25, .35, 'rgba(255,110,30,.10)'], [.7, .3, 'rgba(220,60,40,.08)'], [.55, .8, 'rgba(255,190,80,.07)']].forEach(([nx, ny, c], i) => {
+      const x = (nx + Math.sin(t * .05 + i) * .04) * CW, y = (ny + Math.cos(t * .04 + i) * .04) * CH, R = Math.max(CW, CH) * .55;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, R); g.addColorStop(0, c); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, CW, CH); });
+    bg.forEach(s => { const a = .25 + .6 * Math.pow((Math.sin(s.p + t * 1.4) + 1) / 2, 2); ctx.fillStyle = `rgba(255,236,210,${a.toFixed(2)})`; ctx.beginPath(); ctx.arc(s.x * CW, s.y * CH, s.r, 0, 6.283); ctx.fill(); });
+    // correntes de luz
+    flows.forEach(f => { const A = byId[f.a], B = byId[f.b], c = curve(A, B, f.bend), hot = hotId && (f.a === hotId || f.b === hotId);
+      ctx.strokeStyle = hot ? 'rgba(255,210,120,.75)' : 'rgba(255,170,80,.16)'; ctx.lineWidth = hot ? 2 : 1.1; ctx.beginPath(); ctx.moveTo(c[0], c[1]); ctx.quadraticCurveTo(c[2], c[3], c[4], c[5]); ctx.stroke();
+      for (let k = 0; k < (hot ? 6 : 3); k++) { const tt = (f.off + t * (hot ? .22 : .1) + k / (hot ? 6 : 3)) % 1, [x, y] = qpt(c, tt);
+        const g = ctx.createRadialGradient(x, y, 0, x, y, hot ? 6 : 4); g.addColorStop(0, 'rgba(255,240,200,.95)'); g.addColorStop(1, 'rgba(255,150,50,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, hot ? 6 : 4, 0, 6.283); ctx.fill(); } });
+    // galáxias
+    STARS.filter(s => s.area).forEach(s => { const G = gal[s.id], [cx, cy] = P(s), col = COLORS[s.id] || [255, 190, 90], R = Math.min(CW, CH) * (hotId === s.id ? .13 : .105);
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.5); halo.addColorStop(0, `rgba(${col},.35)`); halo.addColorStop(1, `rgba(${col},0)`); ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 1.5, 0, 6.283); ctx.fill();
+      const rot = t * G.rot + G.ph;
+      for (const p of G.pts) { const a = p.a + rot, x = Math.cos(a) * p.r * R, y = Math.sin(a) * p.r * R * G.tilt; const w = 1 - p.r;
+        ctx.fillStyle = `rgba(${Math.round(col[0] + (255 - col[0]) * w)},${Math.round(col[1] + (255 - col[1]) * w * .9)},${Math.round(col[2] + (235 - col[2]) * w * .8)},${(p.z * (.35 + .65 * w)).toFixed(2)})`;
+        ctx.fillRect(cx + x, cy + y, p.s, p.s); }
+      const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * .28); core.addColorStop(0, 'rgba(255,250,235,1)'); core.addColorStop(.4, `rgba(${col},.8)`); core.addColorStop(1, `rgba(${col},0)`); ctx.fillStyle = core; ctx.beginPath(); ctx.ellipse(cx, cy, R * .28, R * .28 * (G.tilt + .25), 0, 0, 6.283); ctx.fill(); });
+    // planetas
+    STARS.filter(s => !s.area).forEach(s => { const Pl = planets[s.id], [cx, cy] = P(s), r = hotId === s.id ? 11 : 8.5, c = Pl.c;
+      const glow = ctx.createRadialGradient(cx, cy, r, cx, cy, r * 3); glow.addColorStop(0, `rgba(${c},.35)`); glow.addColorStop(1, `rgba(${c},0)`); ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(cx, cy, r * 3, 0, 6.283); ctx.fill();
+      if (Pl.ring) { ctx.strokeStyle = 'rgba(255,215,150,.55)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.ellipse(cx, cy, r * 2, r * .55, -.35, Math.PI, 2 * Math.PI); ctx.stroke(); }
+      ctx.globalCompositeOperation = 'source-over';
+      const sh = ctx.createRadialGradient(cx - r * .4, cy - r * .45, r * .1, cx, cy, r); sh.addColorStop(0, `rgb(${Math.min(255, c[0] + 70)},${Math.min(255, c[1] + 70)},${Math.min(255, c[2] + 60)})`); sh.addColorStop(.6, `rgb(${c})`); sh.addColorStop(1, `rgb(${c[0] * .35 | 0},${c[1] * .3 | 0},${c[2] * .3 | 0})`);
+      ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.283); ctx.fill();
+      if (Pl.ring) { ctx.strokeStyle = 'rgba(255,215,150,.7)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.ellipse(cx, cy, r * 2, r * .55, -.35, 0, Math.PI); ctx.stroke(); }
+      // lua
+      const ma = t * .8 + Pl.ph; ctx.fillStyle = 'rgba(255,235,200,.85)'; ctx.beginPath(); ctx.arc(cx + Math.cos(ma) * r * 2.2, cy + Math.sin(ma) * r * .9, 1.8, 0, 6.283); ctx.fill();
+      ctx.globalCompositeOperation = 'lighter'; });
+    ctx.globalCompositeOperation = 'source-over';
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
   function select(s, btn) {
     $$('.star', map).forEach(x => x.setAttribute('aria-pressed', x === btn));
     $$('line', svg).forEach(l => l.classList.toggle('hot', l.dataset.a === s.id || l.dataset.b === s.id));
+    hotId = s.id; if (reduced) requestAnimationFrame(draw);
     $('#sky-type').textContent = s.area ? 'área de conhecimento' : 'projeto';
     $('#sky-title').textContent = s.name;
     $('#sky-desc').textContent = s.text;
