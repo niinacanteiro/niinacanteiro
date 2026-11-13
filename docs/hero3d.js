@@ -30,8 +30,8 @@ export function initHero(canvas, { reduced = false } = {}) {
     float f1 = fbm(q*2.2 + vec2(t*.03, -t*.02));
     float f2 = fbm(q*4.5 - vec2(t*.05, t*.03) + f1*1.6);
     float arms = pow(.5+.5*sin(atan(q.y,q.x)*2. - length(q)*5. + t*.12 + f2*2.5), 3.);
-    vec3 c = mix(vec3(.10,.02,.22), vec3(.55,.12,.75), f2) * f1 * 1.1;
-    c += vec3(.85,.35,1.)*arms*f2*.35 + vec3(.25,.45,1.)*pow(f1,3.)*.4;
+    vec3 c = mix(vec3(.16,.05,.02), vec3(.62,.20,.05), f2) * f1 * 1.1;
+    c += vec3(1.,.48,.10)*arms*f2*.35 + vec3(.73,.11,.11)*pow(f1,3.)*.4;
     return c*.55;
   }
   void main(){
@@ -66,7 +66,7 @@ export function initHero(canvas, { reduced = false } = {}) {
           float bands = fbm(vec2(sw*3.5, hr*1.6)) * .8 + fbm(vec2(sw*9., hr*5.))*.5 + pow(abs(sin(sw*6. + fbm(vec2(hr*2.,a2))*3.)), 8.)*.45;
           float x = (hr-2.6)/(11.-2.6);
           float temp = pow(1.-x, 1.6);
-          vec3 hot = vec3(.98, .92, 1.), mid = vec3(.68, .32, 1.), cool = vec3(.22, .05, .45);
+          vec3 hot = vec3(1., .95, .82), mid = vec3(1., .48, .10), cool = vec3(.45, .11, .07);
           vec3 dc = mix(cool, mid, smoothstep(0.,.55,temp)); dc = mix(dc, hot, smoothstep(.55,1.,temp));
           // Doppler: lado que vem em nossa direção fica mais claro
           vec3 vel = normalize(vec3(-hit.z, 0., hit.x));
@@ -85,7 +85,7 @@ export function initHero(canvas, { reduced = false } = {}) {
     if(!hole) col += (stars(v)*.9 + nebula(v, t)) * alpha;
     // halo de fótons
     float glow = exp(-pow(length(uv)*2.2,2.))*.0;
-    col += vec3(.7,.3,1.)*glow;
+    col += vec3(1.,.6,.2)*glow;
     col = col / (1. + col);                        // tonemap
     col = pow(col, vec3(.85));
     // vinheta
