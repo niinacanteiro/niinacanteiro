@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nicoly Canteiro · Engenharia Elétrica, programação e robótica</title>
-<meta name="description" content="Portfólio interativo de Nicoly Canteiro, estudante de Engenharia Elétrica no IFMT Pontes e Lacerda: experimentos em Python, LaTeX, circuitos e Arduino.">
+<meta name="description" content="Portfólio interativo de Nicoly Canteiro, estudante de Engenharia Elétrica no IFMT: experimentos em Python, LaTeX, circuitos e Arduino.">
 <meta name="theme-color" content="#0A0806">
 <meta property="og:title" content="Nicoly Canteiro · Universo tecnológico">
 <meta property="og:description" content="Engenharia Elétrica · Programação · Robótica · Tecnologia">
@@ -33,6 +33,7 @@
     <li><a href="#sobre" data-node="sobre"><span class="sr">Sobre mim</span></a></li>
     <li><a href="#laboratorio" data-node="laboratorio"><span class="sr">Laboratório</span></a></li>
     <li><a href="#conhecimentos" data-node="conhecimentos"><span class="sr">Conhecimentos</span></a></li>
+    <li><a href="#cobrinha" data-node="cobrinha"><span class="sr">Cobrinha</span></a></li>
     <li><a href="#constelacoes" data-node="constelacoes"><span class="sr">Constelações</span></a></li>
     <li><a href="#contato" data-node="contato"><span class="sr">Contato</span></a></li>
   </ol>
@@ -49,6 +50,7 @@
     <a href="#sobre">Sobre</a>
     <a href="#laboratorio">Laboratório</a>
     <a href="#conhecimentos">Conhecimentos</a>
+    <a href="#cobrinha">Cobrinha</a>
     <a href="#constelacoes">Constelações</a>
     <a href="#contato">Contato</a>
   </nav>
@@ -79,7 +81,7 @@
 
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="chip"><span class="dot"></span> Portfólio de engenharia · IFMT Pontes e Lacerda</p>
+      <p class="chip"><span class="dot"></span> Portfólio de engenharia · IFMT</p>
       <h1 id="hero-title" class="name">NICOLY<br><span>CANTEIRO</span></h1>
       <p class="signature">ENGENHARIA ELÉTRICA <i>·</i> PROGRAMAÇÃO <i>·</i> ROBÓTICA <i>·</i> TECNOLOGIA</p>
       <p class="lede">Estudante de Engenharia Elétrica explorando o caminho entre a equação, o código e o circuito montado na bancada. Aqui ficam meus experimentos — com dados reais, direto dos meus repositórios.</p>
@@ -167,8 +169,7 @@
     </div>
     <dl class="facts glass">
       <div><dt>Curso</dt><dd>Bacharelado em Engenharia Elétrica</dd></div>
-      <div><dt>Instituição</dt><dd>IFMT · Campus Pontes e Lacerda – Fronteira Oeste</dd></div>
-      <div><dt>De onde eu programo</dt><dd>Pontes e Lacerda, Mato Grosso, Brasil</dd></div>
+      <div><dt>Instituição</dt><dd>Instituto Federal de Mato Grosso (IFMT)</dd></div>
       <div><dt>Estudando agora</dt><dd>Python, métodos numéricos, análise de dados e documentação técnica</dd></div>
       <div><dt>Fora da bancada</dt><dd>Física de partículas, astrofísica e astronomia</dd></div>
     </dl>
@@ -446,6 +447,29 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
 
 <div class="bus" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path class="trace" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><path class="signal" d="M0 30 H560 L590 10 H610 L640 30 H1200"/><circle cx="590" cy="10" r="4"/><circle cx="610" cy="10" r="4"/></svg></div>
 
+<!-- 6b. COBRINHA -->
+<section id="cobrinha" class="section" aria-labelledby="snake-title">
+  <header class="sec-head">
+    <p class="kicker">06 · Pausa para brincar</p>
+    <h2 id="snake-title">A cobrinha das contribuições</h2>
+    <p class="sec-sub">O tabuleiro é o meu gráfico de contribuições do GitHub. Guie a cobra e coma os quadradinhos acesos: quanto mais forte o dia, mais pontos.</p>
+  </header>
+  <div class="snake glass">
+    <div class="snake-top">
+      <p class="readout">Pontos <b id="sn-score">0</b> · Recorde <b id="sn-best">0</b></p>
+      <button type="button" class="btn small primary" id="sn-start">Jogar</button>
+    </div>
+    <div class="snake-stage"><canvas id="sn-canvas" width="530" height="90" aria-label="Jogo da cobrinha sobre o gráfico de contribuições"></canvas>
+      <p class="snake-msg" id="sn-msg">Toque em Jogar. Use as setas, W A S D, deslize o dedo ou os botões.</p></div>
+    <div class="dpad" aria-label="Controles">
+      <button type="button" data-d="up" aria-label="Cima">▲</button>
+      <button type="button" data-d="left" aria-label="Esquerda">◀</button>
+      <button type="button" data-d="down" aria-label="Baixo">▼</button>
+      <button type="button" data-d="right" aria-label="Direita">▶</button>
+    </div>
+  </div>
+</section>
+
 <!-- 6. CONSTELAÇÕES -->
 <section id="constelacoes" class="section" aria-labelledby="map-title">
   <header class="sec-head">
@@ -486,10 +510,11 @@ b2 = ((y2 - y1)/(x2 - x1) - b1) / (x2 - x0)
 </main>
 
 <footer class="footer">
-  <p>Feito à mão por <b>Nicoly Canteiro</b> · Pontes e Lacerda, MT · <span id="year">2026</span></p>
+  <p>Feito à mão por <b>Nicoly Canteiro</b> · <span id="year">2026</span></p>
   <p><a href="https://github.com/niinacanteiro/niinacanteiro/tree/main/docs" target="_blank" rel="noopener">código-fonte deste site</a> · <a href="#inicio">voltar ao topo ↑</a></p>
 </footer>
 
 <script type="module" src="main.js"></script>
+<script src="cobrinha.js" defer></script>
 </body>
 </html>
