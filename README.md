@@ -6,6 +6,8 @@
 
 <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,latex,arduino,git,github,vscode,linux&theme=dark" /></a>
 
+<img src="https://komarev.com/ghpvc/?username=niinacanteiro&label=Visitas%20ao%20perfil&color=ff7a1a&style=for-the-badge" alt="Visitas ao perfil" />
+
 
 </div>
 
@@ -38,7 +40,9 @@ nina = {
 
 ## 🌳 Minha árvore de conhecimento
 
-<img src="./arvore.svg" width="100%" alt="Árvore de conhecimento: Engenharia Elétrica, Código, Documentação e Robótica" />
+<a href="https://niinacanteiro.github.io/niinacanteiro/arvore.html"><img src="./arvore.svg" width="100%" alt="Árvore de conhecimento: Engenharia Elétrica, Código, Documentação e Robótica" /></a>
+
+<p align="center"><a href="https://niinacanteiro.github.io/niinacanteiro/arvore.html"><b>➡️ Ver a árvore em 3D e tocar em cada galho</b></a></p>
 
 <img src="./divider.svg" width="100%" />
 
