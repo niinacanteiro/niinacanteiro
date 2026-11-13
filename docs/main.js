@@ -337,3 +337,18 @@ if (!reduced && matchMedia('(hover:hover)').matches) {
     setTimeout(tick, wait);
   }, 2200);
 })();
+
+/* ---------------- frase de apresentação que se escreve e se apaga ---------------- */
+(function ledeTyper() {
+  const el = $('#lede-typed'); if (!el || reduced) return;
+  const full = el.textContent; let i = 0, del = false;
+  el.textContent = '';
+  setTimeout(function tick() {
+    i += del ? -3 : 1; if (i < 0) i = 0;
+    el.textContent = full.slice(0, i);
+    let wait = del ? 14 : 34;
+    if (!del && i >= full.length) { del = true; wait = 4500; }
+    else if (del && i === 0) { del = false; wait = 700; }
+    setTimeout(tick, wait);
+  }, 900);
+})();

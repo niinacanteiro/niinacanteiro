@@ -1,5 +1,5 @@
 // Buraco negro em tempo real (WebGL puro): raios de luz curvados pela gravidade,
-// disco de acreção em laranja, amarelo e marrom girando, com efeito Doppler e estrelas lenteadas.
+// disco de acreção roxo e violeta girando em espiral, com uma nebulosa/galáxia se movendo ao fundo, com efeito Doppler e estrelas lenteadas.
 export function initHero(canvas, { reduced = false } = {}) {
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
   if (!gl) return null;
@@ -22,6 +22,17 @@ export function initHero(canvas, { reduced = false } = {}) {
       if(h > .985){ float b = smoothstep(.2,.0,length(f)) * (h-.985)*60.; c += b * mix(vec3(1.,.85,.6), vec3(.75,.85,1.), hash(id+3.)); }
     }
     return c;
+  }
+  vec3 nebula(vec3 d, float t){
+    // nuvens de gás girando devagar em volta do buraco negro
+    float a = t*.025; mat2 R = mat2(cos(a),-sin(a),sin(a),cos(a));
+    vec2 q = d.xy/(1.2+d.z*.3); q = R*q;
+    float f1 = fbm(q*2.2 + vec2(t*.03, -t*.02));
+    float f2 = fbm(q*4.5 - vec2(t*.05, t*.03) + f1*1.6);
+    float arms = pow(.5+.5*sin(atan(q.y,q.x)*2. - length(q)*5. + t*.12 + f2*2.5), 3.);
+    vec3 c = mix(vec3(.10,.02,.22), vec3(.55,.12,.75), f2) * f1 * 1.1;
+    c += vec3(.85,.35,1.)*arms*f2*.35 + vec3(.25,.45,1.)*pow(f1,3.)*.4;
+    return c*.55;
   }
   void main(){
     vec2 uv = (gl_FragCoord.xy - ctr*res) / res.y;
@@ -51,10 +62,11 @@ export function initHero(canvas, { reduced = false } = {}) {
           float ang = atan(hit.z, hit.x);
           float w = 1.2 / pow(hr, 1.5);                // rotação kepleriana
           float a2 = ang + t*w*3.;
-          float bands = fbm(vec2(a2*3.5, hr*1.6)) * .8 + fbm(vec2(a2*9., hr*5.))*.5;
+          float sw = a2 + log(hr)*2.2; // braços em espiral
+          float bands = fbm(vec2(sw*3.5, hr*1.6)) * .8 + fbm(vec2(sw*9., hr*5.))*.5 + pow(abs(sin(sw*6. + fbm(vec2(hr*2.,a2))*3.)), 8.)*.45;
           float x = (hr-2.6)/(11.-2.6);
           float temp = pow(1.-x, 1.6);
-          vec3 hot = vec3(1., .93, .78), mid = vec3(1., .62, .16), cool = vec3(.45, .2, .06);
+          vec3 hot = vec3(.98, .92, 1.), mid = vec3(.68, .32, 1.), cool = vec3(.22, .05, .45);
           vec3 dc = mix(cool, mid, smoothstep(0.,.55,temp)); dc = mix(dc, hot, smoothstep(.55,1.,temp));
           // Doppler: lado que vem em nossa direção fica mais claro
           vec3 vel = normalize(vec3(-hit.z, 0., hit.x));
@@ -70,10 +82,10 @@ export function initHero(canvas, { reduced = false } = {}) {
       p = pn;
       if(r > 60.) break;
     }
-    if(!hole) col += stars(v) * alpha * .9;
+    if(!hole) col += (stars(v)*.9 + nebula(v, t)) * alpha;
     // halo de fótons
     float glow = exp(-pow(length(uv)*2.2,2.))*.0;
-    col += vec3(1.,.5,.15)*glow;
+    col += vec3(.7,.3,1.)*glow;
     col = col / (1. + col);                        // tonemap
     col = pow(col, vec3(.85));
     // vinheta

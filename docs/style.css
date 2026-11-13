@@ -64,8 +64,8 @@ svg use{fill:currentColor}
 .chip{display:inline-flex;align-items:center;gap:10px;font:500 13px var(--f-mono);color:var(--gold);padding:7px 14px;border-radius:999px;border:1px solid var(--glass-b);background:rgba(255,122,26,.08);margin:0 0 22px}
 .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:blink 2s infinite}
 @keyframes blink{50%{opacity:.3}}
-.name{font:200 clamp(40px,7vw,104px)/1 "Montserrat",var(--f-title);letter-spacing:.14em;margin:0;text-shadow:0 0 30px rgba(255,122,26,.22)}
-.name span{font-weight:300;background:linear-gradient(92deg,var(--orange),var(--amber) 55%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.name{font:100 clamp(40px,7vw,104px)/1.02 "Montserrat",var(--f-title);letter-spacing:.2em;margin:0;text-shadow:0 0 30px rgba(255,122,26,.22)}
+.name span{font-weight:200;background:linear-gradient(92deg,var(--orange),var(--amber) 55%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
 .signature{font:500 clamp(11px,1.25vw,14px) var(--f-mono);letter-spacing:.22em;color:var(--gold);margin:22px 0 0}
 .signature i{color:var(--orange);font-style:normal;padding:0 .2em}
 .lede{color:var(--muted);max-width:56ch;font-size:clamp(15px,1.3vw,18px);margin:22px 0 32px}
@@ -327,3 +327,7 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 .signature{min-height:1.6em;font:300 clamp(13px,1.4vw,16px) "Montserrat",var(--f-mono);letter-spacing:.32em}
 .caret{display:inline-block;width:2px;height:1.1em;margin-left:6px;vertical-align:-.15em;background:var(--amber);box-shadow:0 0 8px var(--orange);animation:blink 1s steps(1) infinite}
 .footer .credit{font-size:12px;color:var(--dim)}
+
+.lede .lede-txt{white-space:pre-wrap}.lede .lede-caret{display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:var(--gold);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{min-height:5.2em}
