@@ -331,3 +331,6 @@ input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:point
 .lede .lede-txt{white-space:pre-wrap}.lede .lede-caret{display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:var(--gold);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .lede{min-height:5.2em}
+
+.hero-art{display:flex;justify-content:center;align-items:center}.hero-art img{width:100%;max-width:620px;border-radius:22px;filter:drop-shadow(0 0 40px rgba(168,85,247,.25))}
+@media (max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-art img{max-width:520px}}
