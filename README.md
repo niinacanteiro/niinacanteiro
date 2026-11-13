@@ -2,9 +2,11 @@
 
 <img src="./header.svg" width="100%" alt="Nicoly Canteiro" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=2600&pause=800&color=FFC531&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Montserrat&weight=300&size=22&letterSpacing=2px&duration=2600&pause=800&color=FFC531&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
 
-<a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,latex,arduino,git,github,vscode,linux&theme=dark" /></a>
+<img src="./relatividade.svg" width="100%" alt="Relatividade geral em 3D: a massa curva o espaço-tempo" />
+
+<img src="./tech-orbit.svg" width="100%" alt="Ferramentas que eu uso: Python, Jupyter, LaTeX, Overleaf, Arduino, Tinkercad, Git, GitHub, Power BI, Excel, Office e Autodesk" />
 
 
 </div>
@@ -13,7 +15,7 @@
 
 ### 🪐 [Entrar no meu universo interativo →](https://niinacanteiro.github.io/niinacanteiro/)
 
-Universo 3D, circuito vivo, laboratório de experimentos e mapa de constelações.
+Sistema Solar em 3D, laboratório de experimentos, fliperama com 4 joguinhos e mapa de constelações.
 
 <a href="https://niinacanteiro.github.io/niinacanteiro/"><img src="https://img.shields.io/badge/ABRIR_PORTF%C3%93LIO-FF7A1A?style=for-the-badge&logo=githubpages&logoColor=0A0806" alt="Abrir portfólio" /></a>
 
@@ -35,27 +37,9 @@ nina = {
 
 <img src="./divider.svg" width="100%" />
 
-## 🧠 Mapa mental
+## 🌳 Minha árvore de conhecimento
 
-```mermaid
-mindmap
-  root((Nina ⚡))
-    Engenharia Elétrica
-      Circuitos Elétricos
-      Simulação no PSIM
-      Motores de indução
-    Código
-      Python
-      Métodos numéricos
-      Análise de dados
-    Documentação
-      LaTeX
-      circuitikz
-      pgfplots
-    Robótica
-      Arduino
-      Tinkercad
-```
+<img src="./arvore.svg" width="100%" alt="Árvore de conhecimento: Engenharia Elétrica, Código, Documentação e Robótica" />
 
 <img src="./divider.svg" width="100%" />
 
@@ -66,183 +50,6 @@ Carga de um capacitor num circuito RC, do meu [relatório de laboratório](https
 $$
 v_C(t) = V_s\left(1 - e^{-t/RC}\right), \qquad \tau = RC
 $$
-
-<img src="./divider.svg" width="100%" />
-
-## 🧊 Um raio em 3D (gire com o mouse ou o dedo)
-
-```stl
-solid raio
-facet normal 0.0000 0.0000 1.0000
- outer loop
-  vertex 6.0 10.0 1.5
-  vertex 4.0 10.0 1.5
-  vertex 0.0 4.0 1.5
- endloop
-endfacet
-facet normal 0.0000 0.0000 -1.0000
- outer loop
-  vertex 0 4 0
-  vertex 4 10 0
-  vertex 6 10 0
- endloop
-endfacet
-facet normal 0.0000 0.0000 1.0000
- outer loop
-  vertex 6.0 10.0 1.5
-  vertex 0.0 4.0 1.5
-  vertex 3.0 4.0 1.5
- endloop
-endfacet
-facet normal 0.0000 0.0000 -1.0000
- outer loop
-  vertex 3 4 0
-  vertex 0 4 0
-  vertex 6 10 0
- endloop
-endfacet
-facet normal 0.0000 0.0000 1.0000
- outer loop
-  vertex 6.0 10.0 1.5
-  vertex 3.0 4.0 1.5
-  vertex 1.0 -2.0 1.5
- endloop
-endfacet
-facet normal 0.0000 0.0000 -1.0000
- outer loop
-  vertex 1 -2 0
-  vertex 3 4 0
-  vertex 6 10 0
- endloop
-endfacet
-facet normal 0.0000 0.0000 1.0000
- outer loop
-  vertex 1.0 -2.0 1.5
-  vertex 7.0 5.0 1.5
-  vertex 4.0 5.0 1.5
- endloop
-endfacet
-facet normal 0.0000 0.0000 -1.0000
- outer loop
-  vertex 4 5 0
-  vertex 7 5 0
-  vertex 1 -2 0
- endloop
-endfacet
-facet normal 0.0000 0.0000 1.0000
- outer loop
-  vertex 1.0 -2.0 1.5
-  vertex 4.0 5.0 1.5
-  vertex 6.0 10.0 1.5
- endloop
-endfacet
-facet normal 0.0000 0.0000 -1.0000
- outer loop
-  vertex 6 10 0
-  vertex 4 5 0
-  vertex 1 -2 0
- endloop
-endfacet
-facet normal -0.8321 0.5547 0.0000
- outer loop
-  vertex 4 10 0
-  vertex 0 4 0
-  vertex 0.0 4.0 1.5
- endloop
-endfacet
-facet normal -0.8321 0.5547 0.0000
- outer loop
-  vertex 4 10 0
-  vertex 0.0 4.0 1.5
-  vertex 4.0 10.0 1.5
- endloop
-endfacet
-facet normal 0.0000 -1.0000 0.0000
- outer loop
-  vertex 0 4 0
-  vertex 3 4 0
-  vertex 3.0 4.0 1.5
- endloop
-endfacet
-facet normal 0.0000 -1.0000 0.0000
- outer loop
-  vertex 0 4 0
-  vertex 3.0 4.0 1.5
-  vertex 0.0 4.0 1.5
- endloop
-endfacet
-facet normal -0.9487 0.3162 0.0000
- outer loop
-  vertex 3 4 0
-  vertex 1 -2 0
-  vertex 1.0 -2.0 1.5
- endloop
-endfacet
-facet normal -0.9487 0.3162 0.0000
- outer loop
-  vertex 3 4 0
-  vertex 1.0 -2.0 1.5
-  vertex 3.0 4.0 1.5
- endloop
-endfacet
-facet normal 0.7593 -0.6508 0.0000
- outer loop
-  vertex 1 -2 0
-  vertex 7 5 0
-  vertex 7.0 5.0 1.5
- endloop
-endfacet
-facet normal 0.7593 -0.6508 0.0000
- outer loop
-  vertex 1 -2 0
-  vertex 7.0 5.0 1.5
-  vertex 1.0 -2.0 1.5
- endloop
-endfacet
-facet normal 0.0000 1.0000 0.0000
- outer loop
-  vertex 7 5 0
-  vertex 4 5 0
-  vertex 4.0 5.0 1.5
- endloop
-endfacet
-facet normal 0.0000 1.0000 -0.0000
- outer loop
-  vertex 7 5 0
-  vertex 4.0 5.0 1.5
-  vertex 7.0 5.0 1.5
- endloop
-endfacet
-facet normal 0.9285 -0.3714 0.0000
- outer loop
-  vertex 4 5 0
-  vertex 6 10 0
-  vertex 6.0 10.0 1.5
- endloop
-endfacet
-facet normal 0.9285 -0.3714 0.0000
- outer loop
-  vertex 4 5 0
-  vertex 6.0 10.0 1.5
-  vertex 4.0 5.0 1.5
- endloop
-endfacet
-facet normal 0.0000 1.0000 0.0000
- outer loop
-  vertex 6 10 0
-  vertex 4 10 0
-  vertex 4.0 10.0 1.5
- endloop
-endfacet
-facet normal 0.0000 1.0000 -0.0000
- outer loop
-  vertex 6 10 0
-  vertex 4.0 10.0 1.5
-  vertex 6.0 10.0 1.5
- endloop
-endfacet
-endsolid raio
-```
 
 <img src="./divider.svg" width="100%" />
 
@@ -275,9 +82,9 @@ endsolid raio
 
 <img src="./divider.svg" width="100%" />
 
-## 🎮 Jogue a cobrinha
+## 🎮 Fliperama
 
-A cobra anda sozinha aqui, mas no meu portfólio é você quem controla: use as setas, W A S D ou deslize o dedo para comer meus dias de código.
+A cobra anda sozinha aqui, mas no meu portfólio é você quem joga: Cobrinha, Memória dos Planetas, 2048 e Foguete.
 
 <a href="https://niinacanteiro.github.io/niinacanteiro/#cobrinha">
   <picture>
@@ -289,7 +96,7 @@ A cobra anda sozinha aqui, mas no meu portfólio é você quem controla: use as 
 
 <div align="center">
 
-<a href="https://niinacanteiro.github.io/niinacanteiro/#cobrinha"><img src="https://img.shields.io/badge/%F0%9F%8E%AE_JOGAR_A_COBRINHA-8B4513?style=for-the-badge&labelColor=FF7A1A" alt="Jogar a cobrinha" /></a>
+<a href="https://niinacanteiro.github.io/niinacanteiro/#cobrinha"><img src="https://img.shields.io/badge/%F0%9F%8E%AE_JOGAR_NO_FLIPERAMA-8B4513?style=for-the-badge&labelColor=FF7A1A" alt="Jogar no fliperama" /></a>
 
 </div>
 
