@@ -6,7 +6,7 @@
 
 <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,latex,arduino,git,github,vscode,linux&theme=dark" /></a>
 
-<img src="https://komarev.com/ghpvc/?username=niinacanteiro&label=Visitas%20ao%20perfil&color=ff7a1a&style=for-the-badge" alt="Visitas ao perfil" />
+<a href="https://niinacanteiro.github.io/niinacanteiro/"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Feletronseestrelas.goatcounter.com%2Fcounter%2FTOTAL.json&query=%24.count_unique&label=Visitantes%20dos%20meus%20sites&color=ff7a1a&style=for-the-badge&cacheSeconds=3600" alt="Visitantes dos meus sites" /></a>
 
 
 </div>
