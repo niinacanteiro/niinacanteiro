@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Árvore de conhecimento em 3D · Nicoly Canteiro</title>
+<meta name="theme-color" content="#050302">
+<link rel="stylesheet" href="fonts.css">
+<style>
+html,body{margin:0;height:100%;background:#050302;color:#FFC531;overflow:hidden;font-family:"Space Grotesk",system-ui,sans-serif}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab}#c:active{cursor:grabbing}
+.top{position:fixed;left:0;right:0;top:18px;text-align:center;pointer-events:none}
+.top h1{margin:0;font:600 clamp(20px,3vw,32px) "Space Grotesk",sans-serif;color:#FFF1D6;text-shadow:0 0 18px rgba(255,160,40,.45)}
+.top p{margin:6px 0 0;font:600 12px "JetBrains Mono",monospace;letter-spacing:.3em;color:#FFC531}
+.back{position:fixed;left:16px;top:16px;font:600 13px "Space Grotesk",sans-serif;color:#FFC531;text-decoration:none;border:1px solid rgba(255,197,49,.35);padding:7px 12px;border-radius:999px;background:rgba(10,8,6,.6);z-index:5}
+.hint{position:fixed;left:0;right:0;bottom:16px;text-align:center;font:500 12px "JetBrains Mono",monospace;color:rgba(255,210,122,.7);letter-spacing:.12em}
+#labels{position:fixed;inset:0;pointer-events:none}
+.tag{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;white-space:nowrap;font:500 13px "Space Grotesk",sans-serif;color:#FFF3DF;background:rgba(18,9,4,.82);border:1px solid rgba(255,197,49,.4);border-radius:999px;padding:5px 12px;transition:transform .2s,box-shadow .2s;user-select:none}
+.tag.cat{color:#FFC531;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;border-color:rgba(255,197,49,.8)}
+.tag:hover,.tag.on{box-shadow:0 0 16px rgba(255,160,40,.7);transform:translate(-50%,-50%) scale(1.08)}
+.tag.hide{opacity:0;pointer-events:none}
+#card{position:fixed;right:18px;bottom:52px;max-width:320px;background:rgba(18,9,4,.92);border:1px solid rgba(255,197,49,.5);border-radius:16px;padding:16px 18px;color:#FFF3DF;font:400 14px/1.45 "Space Grotesk",sans-serif;box-shadow:0 0 30px rgba(255,122,26,.25)}
+#card[hidden]{display:none}#card h2{margin:0 0 6px;font-size:18px;color:#FFC531}#card small{display:block;margin-bottom:8px;color:#FFB070;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+#card button{position:absolute;right:10px;top:8px;background:none;border:0;color:#FFC531;font-size:18px;cursor:pointer}
+</style>
+<script type="importmap">{ "imports": { "three": "./three.module.min.js", "three/addons/controls/OrbitControls.js": "./OrbitControls.js" } }</script>
+</head>
+<body>
+<canvas id="c" aria-label="Árvore de conhecimento em 3D. Arraste para girar e toque nos galhos para ver cada conhecimento."></canvas>
+<div id="labels"></div>
+<a class="back" href="./">← Portfólio</a>
+<div class="top"><h1>Minha árvore de conhecimento</h1><p>TOQUE EM UM GALHO</p></div>
+<div id="card" hidden><button type="button" aria-label="Fechar">×</button><small id="ck"></small><h2 id="ct"></h2><p id="cd" style="margin:0"></p></div>
+<div class="hint">arraste para girar · role ou faça pinça para aproximar</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const DATA = [
+ { name: 'Engenharia Elétrica', dir: [-1, .9, .35], items: [
+   ['Circuitos Elétricos', 'Análise de circuitos RC e de corrente alternada, com medições feitas no laboratório do IFMT.'],
+   ['Simulação no PSIM', 'Simulo os circuitos antes de montar, para conferir tensões e correntes.'],
+   ['Motores de indução', 'Ensaios e cálculos com motores de indução nas aulas práticas.'] ] },
+ { name: 'Documentação', dir: [1, .9, -.35], items: [
+   ['LaTeX', 'Escrevo meus relatórios técnicos em LaTeX, no Overleaf.'],
+   ['circuitikz', 'Desenho os esquemas dos circuitos direto no LaTeX.'],
+   ['pgfplots', 'Gráficos dos dados medidos, gerados dentro do relatório.'] ] },
+ { name: 'Código', dir: [-1, .35, -.6], items: [
+   ['Python', 'Linguagem que uso para os métodos numéricos e a análise de dados.'],
+   ['Métodos numéricos', 'Interpolação quadrática de Newton e outros métodos em notebooks Jupyter.'],
+   ['Análise de dados', 'Pacote Office e Power BI para transformar números em decisões.'] ] },
+ { name: 'Robótica', dir: [1, .35, .6], items: [
+   ['Arduino', 'No projeto de extensão em robótica, dei uma aula prática de semáforo com Arduino.'],
+   ['Tinkercad', 'Circuitos simulados no Tinkercad, do esquema ao protótipo virtual.'] ] }
+];
+const cv = document.getElementById('c');
+const R = new THREE.WebGLRenderer({ canvas: cv, antialias: true });
+R.setPixelRatio(Math.min(2, devicePixelRatio));
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x050302);
+scene.fog = new THREE.Fog(0x050302, 30, 70);
+const cam = new THREE.PerspectiveCamera(45, 1, .1, 300); cam.position.set(0, 7, 24);
+const ctl = new OrbitControls(cam, cv); ctl.enableDamping = true; ctl.target.set(0, 5, 0);
+ctl.minDistance = 10; ctl.maxDistance = 40; ctl.autoRotate = true; ctl.autoRotateSpeed = .6; ctl.maxPolarAngle = Math.PI * .58;
+scene.add(new THREE.AmbientLight(0xffd9b0, .55));
+const sunL = new THREE.DirectionalLight(0xffc27a, 1.6); sunL.position.set(-8, 14, 10); scene.add(sunL);
+const rim = new THREE.PointLight(0xff7a1a, 40, 0, 1.6); rim.position.set(0, 8, -6); scene.add(rim);
+
+const barkMat = new THREE.MeshStandardMaterial({ color: 0x6B3410, roughness: .85, metalness: 0 });
+function limb(a, b, r0, r1) {
+  const d = new THREE.Vector3().subVectors(b, a), L = d.length();
+  const g = new THREE.CylinderGeometry(r1, r0, L, 10, 1); g.translate(0, L / 2, 0);
+  const m = new THREE.Mesh(g, barkMat); m.position.copy(a);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.clone().normalize()); scene.add(m);
+}
+// tronco
+const top = new THREE.Vector3(0, 4.2, 0);
+limb(new THREE.Vector3(0, -1, 0), top, 1.05, .62);
+// raízes
+for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; limb(new THREE.Vector3(0, -.6, 0), new THREE.Vector3(Math.cos(a) * 2.2, -1.05, Math.sin(a) * 2.2), .45, .08); }
+const ground = new THREE.Mesh(new THREE.CircleGeometry(9, 48), new THREE.MeshBasicMaterial({ color: 0xff7a1a, transparent: true, opacity: .08 }));
+ground.rotation.x = -Math.PI / 2; ground.position.y = -1.05; scene.add(ground);
+
+// folhas (instanced)
+const leafGeo = new THREE.PlaneGeometry(.42, .26);
+const leafMat = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, roughness: .6, emissive: 0x401000, emissiveIntensity: .6 });
+const PAL = [0xFFC531, 0xFFA530, 0xFF7A1A, 0xE8701A, 0xD9580E, 0xC2410C, 0xB91C1C, 0xFFD27A, 0xFFE29A, 0x93301A];
+const leaves = []; const clusters = [];
+function addCluster(c, rad, n) { clusters.push({ c: c.clone(), rad, n }); }
+const tagsDiv = document.getElementById('labels'); const tags = []; const picks = [];
+function tag(text, pos, cat, info, catName) {
+  const el = document.createElement('div'); el.className = 'tag' + (cat ? ' cat' : ''); el.textContent = text;
+  el.addEventListener('click', () => show(text, info, catName, el)); tagsDiv.appendChild(el); tags.push({ el, pos });
+}
+DATA.forEach(cat => {
+  const dir = new THREE.Vector3(...cat.dir).normalize();
+  const mid = top.clone().add(dir.clone().multiplyScalar(3.6)); mid.y += 1.2;
+  limb(top, mid, .5, .3);
+  addCluster(mid, 1.8, 420);
+  tag(cat.name, mid.clone().add(new THREE.Vector3(0, 1.9, 0)), true, 'Área com ' + cat.items.length + ' conhecimentos. Toque nos galhos dela.', 'Área');
+  cat.items.forEach(([nm, info], i) => {
+    const n = cat.items.length, ang = (i - (n - 1) / 2) * .9;
+    const side = new THREE.Vector3(-dir.z, 0, dir.x);
+    const d2 = dir.clone().multiplyScalar(2.2).add(side.multiplyScalar(Math.sin(ang) * 2.6)); d2.y = 1.2 + Math.cos(ang) * 1.3 - (i === 1 && n === 3 ? .2 : 0);
+    const tip = mid.clone().add(d2);
+    limb(mid, tip, .26, .1);
+    addCluster(tip, 1.25, 260);
+    tag(nm, tip.clone().add(new THREE.Vector3(0, -1.55, 0)), false, info, cat.name);
+  });
+});
+addCluster(top.clone().add(new THREE.Vector3(0, 3.6, 0)), 2.4, 600);
+let total = clusters.reduce((s, c) => s + c.n, 0);
+const inst = new THREE.InstancedMesh(leafGeo, leafMat, total);
+const dummy = new THREE.Object3D(), col = new THREE.Color(); let idx = 0;
+clusters.forEach(cl => {
+  for (let k = 0; k < cl.n; k++) {
+    const v = new THREE.Vector3().randomDirection().multiplyScalar(cl.rad * Math.cbrt(Math.random()));
+    v.y *= .8; const p = cl.c.clone().add(v);
+    dummy.position.copy(p); dummy.rotation.set(Math.random() * 6.3, Math.random() * 6.3, Math.random() * 6.3);
+    const s = .7 + Math.random() * .7; dummy.scale.set(s, s, s); dummy.updateMatrix(); inst.setMatrixAt(idx, dummy.matrix);
+    const hiTop = (p.y - 4) / 8; let c = PAL[Math.floor(Math.random() * PAL.length)];
+    if (Math.random() < hiTop * .6) c = [0xFFD27A, 0xFFE29A, 0xFFC531][k % 3];
+    inst.setColorAt(idx, col.set(c)); leaves.push({ p: p.clone(), r: dummy.rotation.clone(), s, ph: Math.random() * 6.3 }); idx++;
+  }
+});
+scene.add(inst);
+// vagalumes
+const ffG = new THREE.BufferGeometry(); const ffP = new Float32Array(60 * 3);
+for (let i = 0; i < 60; i++) { ffP[i * 3] = (Math.random() - .5) * 18; ffP[i * 3 + 1] = Math.random() * 12; ffP[i * 3 + 2] = (Math.random() - .5) * 18; }
+ffG.setAttribute('position', new THREE.BufferAttribute(ffP, 3));
+const ff = new THREE.Points(ffG, new THREE.PointsMaterial({ color: 0xFFE29A, size: .18, transparent: true, opacity: .9, blending: THREE.AdditiveBlending }));
+scene.add(ff);
+const sp = []; for (let k = 0; k < 1200; k++) { const v = new THREE.Vector3().randomDirection().multiplyScalar(90 + Math.random() * 80); sp.push(v.x, Math.abs(v.y) * .8 + 5, v.z); }
+const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xFFE9C4, size: .7, transparent: true, opacity: .7, fog: false })));
+
+const card = document.getElementById('card');
+function show(t, d, k, el) {
+  tags.forEach(x => x.el.classList.remove('on')); el.classList.add('on');
+  document.getElementById('ct').textContent = t; document.getElementById('cd').textContent = d; document.getElementById('ck').textContent = k;
+  card.hidden = false; ctl.autoRotate = false;
+}
+card.querySelector('button').addEventListener('click', () => { card.hidden = true; tags.forEach(x => x.el.classList.remove('on')); ctl.autoRotate = true; });
+function resize() { R.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; if (reduced) ctl.autoRotate = false;
+const clock = new THREE.Clock(); const v = new THREE.Vector3(); let frame = 0;
+function tick() {
+  const t = clock.getElapsedTime(); frame++;
+  if (!reduced && frame % 2 === 0) {
+    for (let i = 0; i < leaves.length; i++) { const L = leaves[i];
+      dummy.position.copy(L.p); dummy.position.x += Math.sin(t * 1.3 + L.ph) * .03;
+      dummy.rotation.set(L.r.x + Math.sin(t * 2 + L.ph) * .25, L.r.y, L.r.z); dummy.scale.setScalar(L.s); dummy.updateMatrix(); inst.setMatrixAt(i, dummy.matrix); }
+    inst.instanceMatrix.needsUpdate = true;
+  }
+  const a = ffG.attributes.position; for (let i = 0; i < 60; i++) { a.array[i * 3 + 1] += Math.sin(t + i) * .004; } a.needsUpdate = true;
+  ff.material.opacity = .6 + Math.sin(t * 2) * .3;
+  ctl.update(); R.render(scene, cam);
+  const W = innerWidth, H = innerHeight;
+  tags.forEach(x => { v.copy(x.pos).project(cam); const vis = v.z < 1; x.el.style.left = ((v.x + 1) / 2 * W) + 'px'; x.el.style.top = ((1 - v.y) / 2 * H) + 'px'; x.el.classList.toggle('hide', !vis); x.el.style.zIndex = String(Math.round((1 - v.z) * 1000)); });
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
