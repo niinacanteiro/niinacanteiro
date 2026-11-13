@@ -6,7 +6,6 @@
 
 <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,latex,arduino,git,github,vscode,linux&theme=dark" /></a>
 
-<img src="https://komarev.com/ghpvc/?username=niinacanteiro&label=visitantes&color=FF7A1A&style=for-the-badge" />
 
 </div>
 
