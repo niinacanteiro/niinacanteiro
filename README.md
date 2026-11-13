@@ -271,6 +271,7 @@ endsolid raio
 | 📐 | [**relatorios-latex**](https://github.com/niinacanteiro/relatorios-latex) | Relatórios de circuitos em LaTeX com `circuitikz`, `pgfplots` e `tcolorbox` |
 | 🐍 | [**Metodos_Computacionais**](https://github.com/niinacanteiro/Metodos_Computacionais) | Interpolação quadrática em Python |
 | 🚦 | [**Manual-de-Instrucao-LaTex**](https://github.com/niinacanteiro/Manual-de-Instrucao-LaTex) | Manual de semáforo com Arduino |
+| ⚡ | [**tinkercad-circuitos**](https://github.com/niinacanteiro/tinkercad-circuitos) | Simulações no Tinkercad: semáforo, cancela automática com sensor ultrassônico, botão de pedestre e LEDs |
 
 <details>
 <summary><b>🔭 O que estou fazendo agora</b> (clique para abrir)</summary>
@@ -311,6 +312,7 @@ endsolid raio
 <div align="center">
 
 <a href="https://www.linkedin.com/in/nicoly-canteiro"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="https://www.tinkercad.com/users/eocUsKhVAQR"><img src="https://img.shields.io/badge/Tinkercad-FF7A1A?style=for-the-badge&logo=autodesk&logoColor=white" /></a>
 
 <img src="./divider.svg" width="100%" />
 
