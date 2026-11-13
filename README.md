@@ -5,6 +5,7 @@
 <img src="https://readme-typing-svg.demolab.com?font=Montserrat&weight=300&size=22&letterSpacing=2px&duration=2600&pause=800&color=FFC531&center=true&vCenter=true&width=900&lines=%3E+inicializando+nina.exe+...;S%C3%B3+uma+estudante+de+Engenharia+El%C3%A9trica+%E2%9A%A1;Curiosa+pelo+universo+e+por+c%C3%B3digo+%F0%9F%94%AD;Python+%7C+M%C3%A9todos+Num%C3%A9ricos+%7C+LaTeX+%7C+Arduino;Um+el%C3%A9tron+e+uma+linha+de+c%C3%B3digo+por+vez+%F0%9F%92%BB" alt="Typing SVG" />
 
 <img src="./relatividade.svg" width="100%" alt="Relatividade geral em 3D: a massa curva o espaço-tempo" />
+<a href="https://niinacanteiro.github.io/eletrons-e-estrelas/"><img src="https://img.shields.io/badge/⚡_Abrir_laboratório_interativo-FF7A1A?style=for-the-badge" alt="Abrir laboratório interativo"/></a>
 
 <img src="./tech-orbit.svg" width="100%" alt="Ferramentas que eu uso: Python, Jupyter, LaTeX, Overleaf, Arduino, Tinkercad, Git, GitHub, Power BI, Excel, Office e Autodesk" />
 
